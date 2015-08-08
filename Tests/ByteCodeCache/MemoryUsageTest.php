@@ -64,4 +64,11 @@ class MemoryUsageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->memoryUsage->isFull());
     }
+
+    public function testMemoryUsageInPercentIsCalculatedCorrectlyIfSizeIsZero()
+    {
+        $this->memoryUsage = new MemoryUsage(0, 0);
+
+        $this->assertEquals(0.0, $this->memoryUsage->getUsageInPercent(), 'Percentage calculation invalid.', 0.001);
+    }
 }
