@@ -3,7 +3,7 @@
 namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 
 /**
- *
+ * Holds statistics about the cache.
  */
 class Statistics
 {
