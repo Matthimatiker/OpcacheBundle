@@ -8,13 +8,37 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class MemoryUsage
 {
     /**
+     * Current memory usage in MB.
+     *
+     * @var double
+     */
+    protected $usageInMb = null;
+
+    /**
+     * Maximal cache size in MB.
+     *
+     * @var double
+     */
+    protected $sizeInMb = null;
+
+    /**
+     * @param double $usageInMb
+     * @param double $sizeInMb
+     */
+    public function __construct($usageInMb, $sizeInMb)
+    {
+        $this->usageInMb = $usageInMb;
+        $this->sizeInMb  = $sizeInMb;
+    }
+
+    /**
      * Returns the current memory usage in MB.
      *
      * @return double
      */
     public function getUsageInMb()
     {
-
+        return $this->usageInMb;
     }
 
     /**
@@ -24,7 +48,7 @@ class MemoryUsage
      */
     public function getSizeInMb()
     {
-
+        return $this->sizeInMb;
     }
 
     /**
@@ -36,7 +60,7 @@ class MemoryUsage
      */
     public function getUsageInPercent()
     {
-
+        return ($this->usageInMb / $this->sizeInMb) * 100.0;
     }
 
     /**
@@ -46,6 +70,6 @@ class MemoryUsage
      */
     public function isFull()
     {
-
+        return $this->usageInMb >= $this->sizeInMb;
     }
 }
