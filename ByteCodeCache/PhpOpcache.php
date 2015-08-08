@@ -15,10 +15,17 @@ class PhpOpcache implements ByteCodeCacheInterface
     protected $data = null;
 
     /**
+     * Extracts opcache information from the given data.
+     *
+     * The provided data should be the result of an opcache_get_status() call.
+     *
      * @param array<string, mixed>|null|false $cacheData
      */
     public function __construct($cacheData = null)
     {
+        if ($cacheData === null) {
+            $cacheData = opcache_get_status();
+        }
         $this->data = $this->normalize($cacheData);
     }
 
@@ -74,9 +81,7 @@ class PhpOpcache implements ByteCodeCacheInterface
     protected function normalize($cacheData)
     {
         if (!is_array($cacheData)) {
-            return array(
-
-            );
+            return $this->createFallbackData();
         }
         return $cacheData;
     }
@@ -90,5 +95,29 @@ class PhpOpcache implements ByteCodeCacheInterface
     protected function bytesToMb($bytes)
     {
         return $bytes / 1024.0 / 1024.0;
+    }
+
+    /**
+     * Creates fallback data that is used when no opcache data is available.
+     *
+     * For example that is the case if the opcache is disabled.
+     *
+     * @return array<string, mixed>
+     */
+    protected function createFallbackData()
+    {
+        return array(
+            'opcache_enabled' => false,
+            'memory_usage' => array(
+                'used_memory'   => 0,
+                'free_memory'   => 0,
+                'wasted_memory' => 0
+            ),
+            'opcache_statistics' => array(
+                'hits'   => 0,
+                'misses' => 0
+            ),
+            'scripts' => array()
+        );
     }
 }

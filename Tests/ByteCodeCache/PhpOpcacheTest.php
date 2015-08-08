@@ -122,6 +122,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     {
         $this->opcache = new PhpOpcache(false);
 
+        $this->assertFalse($this->opcache->isEnabled());
         $this->assertInstanceOf(MemoryUsage::class, $this->opcache->memory());
         $this->assertInstanceOf(Statistics::class, $this->opcache->statistics());
     }
