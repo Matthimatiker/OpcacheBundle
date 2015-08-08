@@ -68,13 +68,15 @@ class PhpOpcache implements ByteCodeCacheInterface
     /**
      * Normalizes the given cache data.
      *
-     * @param mixed|boolean $cacheData
+     * @param array<string, mixed>|boolean|mixed $cacheData
      * @return array<string, mixed>
      */
     protected function normalize($cacheData)
     {
         if (!is_array($cacheData)) {
+            return array(
 
+            );
         }
         return $cacheData;
     }
