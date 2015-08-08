@@ -60,6 +60,9 @@ class MemoryUsage
      */
     public function getUsageInPercent()
     {
+        if ($this->sizeInMb == 0.0) {
+            return 0.0;
+        }
         return ($this->usageInMb / $this->sizeInMb) * 100.0;
     }
 
