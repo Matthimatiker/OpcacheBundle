@@ -104,4 +104,9 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
             0.001
         );
     }
+
+    public function testIsEnabledReturnsTrueIfDataIsAvailable()
+    {
+        $this->assertTrue($this->opcache->isEnabled());
+    }
 }
