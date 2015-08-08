@@ -50,4 +50,16 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
             0.001
         );
     }
+
+    public function testHitRateIsCalculatedCorrectlyIfHitsAndMissesAreZero()
+    {
+        $this->statistics = new Statistics(0, 0);
+
+        $this->assertEquals(
+            0.0,
+            $this->statistics->getHitRateInPercent(),
+            'Hit rate is not calculated correctly.',
+            0.001
+        );
+    }
 }
