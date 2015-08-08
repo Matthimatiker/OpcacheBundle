@@ -109,4 +109,20 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->opcache->isEnabled());
     }
+
+    public function testObjectCanBeCreatedWithoutArguments()
+    {
+        $this->opcache = new PhpOpcache();
+
+        $this->assertInstanceOf(MemoryUsage::class, $this->opcache->memory());
+        $this->assertInstanceOf(Statistics::class, $this->opcache->statistics());
+    }
+
+    public function testAccessLayerWorksIfNoCacheDataIsAvailable()
+    {
+        $this->opcache = new PhpOpcache(false);
+
+        $this->assertInstanceOf(MemoryUsage::class, $this->opcache->memory());
+        $this->assertInstanceOf(Statistics::class, $this->opcache->statistics());
+    }
 }
