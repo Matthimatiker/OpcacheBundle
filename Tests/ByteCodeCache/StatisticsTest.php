@@ -44,7 +44,7 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
     public function testHitRateIsCalculatedCorrectly()
     {
         $this->assertEquals(
-            200 / (200 + 100),
+            (200 / (200 + 100)) * 100.0,
             $this->statistics->getHitRateInPercent(),
             'Hit rate is not calculated correctly.',
             0.001
