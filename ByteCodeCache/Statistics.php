@@ -58,6 +58,10 @@ class Statistics
      */
     public function getHitRateInPercent()
     {
-        return $this->hits / ($this->hits + $this->misses);
+        $requests = ($this->hits + $this->misses);
+        if ($requests === 0) {
+            return 0.0;
+        }
+        return $this->hits / $requests;
     }
 }
