@@ -62,6 +62,6 @@ class Statistics
         if ($requests === 0) {
             return 0.0;
         }
-        return $this->hits / $requests;
+        return ($this->hits / $requests) * 100.0;
     }
 }
