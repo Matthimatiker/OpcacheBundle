@@ -98,7 +98,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Statistics::class, $statistics);
         $this->assertEquals(
-            5247 / (5247 + 989),
+            84.140474663245669,
             $statistics->getHitRateInPercent(),
             'Invalid hit rate provided.',
             0.001
