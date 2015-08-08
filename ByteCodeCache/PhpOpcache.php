@@ -8,11 +8,18 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class PhpOpcache implements ByteCodeCacheInterface
 {
     /**
-     * @param array<string, mixed>|null $cacheData
+     * The cache data.
+     *
+     * @var array<sting, mixed>
      */
-    public function __construct(array $cacheData = null)
-    {
+    protected $data = null;
 
+    /**
+     * @param array<string, mixed>|null|false $cacheData
+     */
+    public function __construct($cacheData = null)
+    {
+        $this->data = $this->normalize($cacheData);
     }
 
     /**
@@ -22,7 +29,7 @@ class PhpOpcache implements ByteCodeCacheInterface
      */
     public function isEnabled()
     {
-        // TODO: Implement isEnabled() method.
+        return (bool)$this->data['opcache_enabled'];
     }
 
     /**
@@ -32,7 +39,12 @@ class PhpOpcache implements ByteCodeCacheInterface
      */
     public function memory()
     {
-        // TODO: Implement memory() method.
+        $usageInBytes = $this->data['memory_usage']['used_memory'] +  $this->data['memory_usage']['wasted_memory'];
+        $sizeInBytes  = $usageInBytes + $this->data['memory_usage']['free_memory'];
+        return new MemoryUsage(
+            $this->bytesToMb($usageInBytes),
+            $this->bytesToMb($sizeInBytes)
+        );
     }
 
     /**
@@ -42,11 +54,39 @@ class PhpOpcache implements ByteCodeCacheInterface
      */
     public function statistics()
     {
-        // TODO: Implement statistics() method.
+        return new Statistics(
+            $this->data['opcache_statistics']['hits'],
+            $this->data['opcache_statistics']['misses']
+        );
     }
 
     public function getCachedScripts()
     {
         // TODO: Implement getCachedScripts() method.
+    }
+
+    /**
+     * Normalizes the given cache data.
+     *
+     * @param mixed|boolean $cacheData
+     * @return array<string, mixed>
+     */
+    protected function normalize($cacheData)
+    {
+        if (!is_array($cacheData)) {
+
+        }
+        return $cacheData;
+    }
+
+    /**
+     * Converts bytes into MB.
+     *
+     * @param integer $bytes
+     * @return double
+     */
+    protected function bytesToMb($bytes)
+    {
+        return $bytes / 1024.0 / 1024.0;
     }
 }
