@@ -1,6 +1,12 @@
 services:
     matthimatiker_opcache.data_collector:
         class: Matthimatiker\OpcacheBundle\DataCollector\ByteCodeCacheDataCollector
-        arguments: []
+        arguments: ["@matthimatiker_opcache.byte_code_cache"]
         tags:
             - { name: "data_collector", template: "MatthimatikerOpcacheBundle:DataCollector:ByteCodeCache", id: "matthimatiker_opcache.byte_code_cache" }
+
+    matthimatiker_opcache.byte_code_cache:
+        alias: matthimatiker_opcache.byte_code_cache.php_opcache
+
+    matthimatiker_opcache.byte_code_cache.php_opcache:
+        class: Matthimatiker\OpcacheBundle\ByteCodeCache\PhpOpcache

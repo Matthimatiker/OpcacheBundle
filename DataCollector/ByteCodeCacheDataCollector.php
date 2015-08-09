@@ -2,6 +2,7 @@
 
 namespace Matthimatiker\OpcacheBundle\DataCollector;
 
+use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -12,6 +13,14 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 class ByteCodeCacheDataCollector extends DataCollector
 {
     /**
+     * @param ByteCodeCacheInterface $byteCodeCache
+     */
+    public function __construct(ByteCodeCacheInterface $byteCodeCache)
+    {
+
+    }
+
+    /**
      * Collects data for the given Request and Response.
      *
      * @param Request $request A Request instance
@@ -21,6 +30,16 @@ class ByteCodeCacheDataCollector extends DataCollector
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
         // TODO: Implement collect() method.
+    }
+
+    /**
+     * Provides information about the byte code cache.
+     *
+     * @return ByteCodeCacheInterface
+     */
+    public function getByteCodeCache()
+    {
+
     }
 
     /**
