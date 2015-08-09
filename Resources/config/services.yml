@@ -1,4 +1,6 @@
 services:
-#    matthimatiker_opcache.example:
-#        class: Matthimatiker\OpcacheBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    matthimatiker_opcache.data_collector:
+        class: Matthimatiker\OpcacheBundle\DataCollector\ByteCodeCacheDataCollector
+        arguments: []
+        tags:
+            - { name: "data_collector", template: "MatthimatikerOpcacheBundle:DataCollector:ByteCodeCache", id: "matthimatiker_opcache.byte_code_cache" }
