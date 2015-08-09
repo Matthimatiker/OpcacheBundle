@@ -13,7 +13,19 @@ class ArrayMapper
      */
     public function toArray(ByteCodeCacheInterface $cache)
     {
-
+        return array(
+            'enabled' => $cache->isEnabled(),
+            'memory' => array(
+                'usageInMb' => $cache->memory()->getUsageInMb(),
+                'sizeInMb'  => $cache->memory()->getSizeInMb()
+            ),
+            'statistics' => array(
+                'hits'   => $cache->statistics()->getHits(),
+                'misses' => $cache->statistics()->getMisses()
+            ),
+            'cachedScripts' => array(
+            )
+        );
     }
 
     /**
@@ -22,6 +34,11 @@ class ArrayMapper
      */
     public function fromArray(array $data)
     {
-
+        return new StaticCacheData(
+            $data['enabled'],
+            new MemoryUsage($data['memory']['usageInMb'], $data['memory']['sizeInMb']),
+            new Statistics($data['statistics']['hits'], $data['statistics']['misses']),
+            $data['cachedScripts']
+        );
     }
 }
