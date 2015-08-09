@@ -8,6 +8,21 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class StaticCacheData implements ByteCodeCacheInterface
 {
     /**
+     * @var boolean
+     */
+    protected $enabled = null;
+
+    /**
+     * @var MemoryUsage
+     */
+    protected $memory = null;
+
+    /**
+     * @var Statistics
+     */
+    protected $statistics = null;
+
+    /**
      * @param boolean $enabled
      * @param MemoryUsage $memory
      * @param Statistics $statistics
@@ -15,7 +30,9 @@ class StaticCacheData implements ByteCodeCacheInterface
      */
     public function __construct($enabled, MemoryUsage $memory, Statistics $statistics, array $cachedScripts = array())
     {
-
+        $this->enabled    = $enabled;
+        $this->memory     = $memory;
+        $this->statistics = $statistics;
     }
 
     /**
@@ -25,7 +42,7 @@ class StaticCacheData implements ByteCodeCacheInterface
      */
     public function isEnabled()
     {
-        // TODO: Implement isEnabled() method.
+        return $this->enabled;
     }
 
     /**
@@ -35,7 +52,7 @@ class StaticCacheData implements ByteCodeCacheInterface
      */
     public function memory()
     {
-        // TODO: Implement memory() method.
+        return $this->memory;
     }
 
     /**
@@ -45,7 +62,7 @@ class StaticCacheData implements ByteCodeCacheInterface
      */
     public function statistics()
     {
-        // TODO: Implement statistics() method.
+        return $this->statistics;
     }
 
     public function getCachedScripts()
