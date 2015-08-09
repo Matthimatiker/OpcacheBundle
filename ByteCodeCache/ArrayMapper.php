@@ -9,7 +9,7 @@ class ArrayMapper
 {
     /**
      * @param ByteCodeCacheInterface $cache
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(ByteCodeCacheInterface $cache)
     {
@@ -17,7 +17,7 @@ class ArrayMapper
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return ByteCodeCacheInterface
      */
     public function fromArray(array $data)
