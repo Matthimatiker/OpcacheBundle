@@ -7,6 +7,8 @@ use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\StaticCacheData;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Statistics;
 use Matthimatiker\OpcacheBundle\DataCollector\ByteCodeCacheDataCollector;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ByteCodeCacheDataCollectorTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,6 +42,11 @@ class ByteCodeCacheDataCollectorTest extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
 
+    public function testCollectorProvidesCacheDataBeforeCollection()
+    {
+        $this->assertInstanceOf(ByteCodeCacheInterface::class, $this->dataCollector->getByteCodeCache());
+    }
+
     public function testIsSerializable()
     {
         $this->setExpectedException(null);
@@ -48,6 +55,7 @@ class ByteCodeCacheDataCollectorTest extends \PHPUnit_Framework_TestCase
 
     public function testKeepsByteCodeCacheDataAfterDeserialization()
     {
+        $this->dataCollector->collect(new Request(), new Response());
         $serialized = serialize($this->dataCollector);
         /* @var $restoredCollector ByteCodeCacheDataCollector */
         $restoredCollector = unserialize($serialized);
