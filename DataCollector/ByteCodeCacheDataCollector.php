@@ -2,6 +2,7 @@
 
 namespace Matthimatiker\OpcacheBundle\DataCollector;
 
+use Matthimatiker\OpcacheBundle\ByteCodeCache\ArrayMapper;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +14,20 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 class ByteCodeCacheDataCollector extends DataCollector
 {
     /**
+     * The cache that is used to collect information.
+     *
+     * This is null when the data collector is restored from its serialized form.
+     *
+     * @var ByteCodeCacheInterface|null
+     */
+    protected $byteCodeCache = null;
+
+    /**
      * @param ByteCodeCacheInterface $byteCodeCache
      */
     public function __construct(ByteCodeCacheInterface $byteCodeCache)
     {
-
+        $this->byteCodeCache = $byteCodeCache;
     }
 
     /**
@@ -29,7 +39,8 @@ class ByteCodeCacheDataCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
-        // TODO: Implement collect() method.
+        $mapper = new ArrayMapper();
+        $this->data = $mapper->toArray($this->byteCodeCache);
     }
 
     /**
@@ -39,7 +50,11 @@ class ByteCodeCacheDataCollector extends DataCollector
      */
     public function getByteCodeCache()
     {
-
+        if (count($this->data) === 0) {
+            return $this->byteCodeCache;
+        }
+        $mapper = new ArrayMapper();
+        return $mapper->fromArray($this->data);
     }
 
     /**
