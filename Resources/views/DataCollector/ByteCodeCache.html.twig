@@ -44,6 +44,9 @@
 
 {% block head %}
     {{ parent() }}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js" charset="utf-8"></script>
     {# Chart.js documentation at http://www.chartjs.org/docs #}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js" charset="utf-8"></script>
 {% endblock %}
@@ -66,26 +69,32 @@
     <h2>Opcache</h2>
     <div>
         <h3>Memory usage</h3>
-        <canvas id="byteCodeCacheMemoryUsage" width="300" height="300"></canvas>
+        <div id="byteCodeCacheMemoryUsage"></div>
         <script type="application/javascript">
             (function () {
-                var ctx = document.getElementById("byteCodeCacheMemoryUsage").getContext("2d");
-                var data = [
-                    {
-                        value: {{ collector.byteCodeCache.memory.usageInMb }},
-                        color:"#F7464A",
-                        highlight: "#FF5A5E",
-                        label: "Used"
+                c3.generate({
+                    bindto: "#byteCodeCacheMemoryUsage",
+                    data: {
+                        columns: [
+                            ['Used', {{ collector.byteCodeCache.memory.usageInMb }}],
+                            ['Free', {{ collector.byteCodeCache.memory.freeInMb }}]
+                        ],
+                        type: 'donut'
                     },
-                    {
-                        value: {{ collector.byteCodeCache.memory.freeInMb }},
-                        color: "#46BFBD",
-                        highlight: "#5AD3D1",
-                        label: "Free"
+                    color: {
+                        pattern: ['#F7464A', '#46BFBD']
+                    },
+                    donut: {
+                        title: "{{ '%.2f' | format(collector.byteCodeCache.memory.freeInMb) }} MB free",
+                        expand: false
+                    },
+                    tooltip: {
+                        format: {
+                            value: function (value) {
+                                return value.toFixed(2) + ' MB';
+                            }
+                        }
                     }
-                ];
-                new Chart(ctx).Doughnut(data, {
-                    tooltipTemplate: "<%= label %>: <%= value.toFixed(2) %> MB"
                 });
             })();
         </script>
