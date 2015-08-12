@@ -64,16 +64,18 @@
                     value: {{ collector.byteCodeCache.memory.usageInMb }},
                     color:"#F7464A",
                     highlight: "#FF5A5E",
-                    label: "Used (in MB)"
+                    label: "Used"
                 },
                 {
                     value: {{ collector.byteCodeCache.memory.sizeInMb - collector.byteCodeCache.memory.usageInMb }},
                     color: "#46BFBD",
                     highlight: "#5AD3D1",
-                    label: "Free (in MB)"
+                    label: "Free"
                 }
             ];
-            new Chart(ctx).Doughnut(data);
+            new Chart(ctx).Doughnut(data, {
+                tooltipTemplate: "<%= label %>: <%= value %> MB"
+            });
         </script>
     </div>
     <div>
