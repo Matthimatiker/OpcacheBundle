@@ -42,6 +42,16 @@ class MemoryUsage
     }
 
     /**
+     * Returns the free memory in MB.
+     *
+     * @return double
+     */
+    public function getFreeInMb()
+    {
+
+    }
+
+    /**
      * Returns the maximal size of the cache in MB.
      *
      * @return double
