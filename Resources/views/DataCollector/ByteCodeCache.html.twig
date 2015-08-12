@@ -58,46 +58,50 @@
         <h3>Memory usage</h3>
         <canvas id="byteCodeCacheMemoryUsage" width="300" height="300"></canvas>
         <script type="application/javascript">
-            var ctx = document.getElementById("byteCodeCacheMemoryUsage").getContext("2d");
-            var data = [
-                {
-                    value: {{ collector.byteCodeCache.memory.usageInMb }},
-                    color:"#F7464A",
-                    highlight: "#FF5A5E",
-                    label: "Used"
-                },
-                {
-                    value: {{ collector.byteCodeCache.memory.sizeInMb - collector.byteCodeCache.memory.usageInMb }},
-                    color: "#46BFBD",
-                    highlight: "#5AD3D1",
-                    label: "Free"
-                }
-            ];
-            new Chart(ctx).Doughnut(data, {
-                tooltipTemplate: "<%= label %>: <%= value.toFixed(2) %> MB"
-            });
+            (function () {
+                var ctx = document.getElementById("byteCodeCacheMemoryUsage").getContext("2d");
+                var data = [
+                    {
+                        value: {{ collector.byteCodeCache.memory.usageInMb }},
+                        color:"#F7464A",
+                        highlight: "#FF5A5E",
+                        label: "Used"
+                    },
+                    {
+                        value: {{ collector.byteCodeCache.memory.sizeInMb - collector.byteCodeCache.memory.usageInMb }},
+                        color: "#46BFBD",
+                        highlight: "#5AD3D1",
+                        label: "Free"
+                    }
+                ];
+                new Chart(ctx).Doughnut(data, {
+                    tooltipTemplate: "<%= label %>: <%= value.toFixed(2) %> MB"
+                });
+            })();
         </script>
     </div>
     <div>
         <h3>Hit ratio</h3>
         <canvas id="byteCodeCacheHitRatio" width="300" height="300"></canvas>
         <script type="application/javascript">
-            var ctx = document.getElementById("byteCodeCacheHitRatio").getContext("2d");
-            var data = [
-                {
-                    value: {{ collector.byteCodeCache.statistics.hits }},
-                    color:"#F7464A",
-                    highlight: "#FF5A5E",
-                    label: "Hits"
-                },
-                {
-                    value: {{ collector.byteCodeCache.statistics.misses }},
-                    color: "#46BFBD",
-                    highlight: "#5AD3D1",
-                    label: "Misses"
-                }
-            ];
-            new Chart(ctx).Doughnut(data);
+            (function () {
+                var ctx = document.getElementById("byteCodeCacheHitRatio").getContext("2d");
+                var data = [
+                    {
+                        value: {{ collector.byteCodeCache.statistics.hits }},
+                        color: "#F7464A",
+                        highlight: "#FF5A5E",
+                        label: "Hits"
+                    },
+                    {
+                        value: {{ collector.byteCodeCache.statistics.misses }},
+                        color: "#46BFBD",
+                        highlight: "#5AD3D1",
+                        label: "Misses"
+                    }
+                ];
+                new Chart(ctx).Doughnut(data);
+            })();
         </script>
     </div>
 {% endblock %}
