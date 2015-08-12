@@ -79,6 +79,29 @@
                 });
             })();
         </script>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Memory</th>
+                    <th scope="col">MB</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Used</th>
+                    <td>{{ '%.2f' | format(collector.byteCodeCache.memory.usageInMb) }}</td>
+                </tr>
+                <tr>
+                    <th>Free</th>
+                    <td>{{ '%.2f' | format(collector.byteCodeCache.memory.freeInMb) }}</td>
+                </tr>
+                <tr >
+                    <th style="border-top: 2px solid #d0dbb3;">Size</th>
+                    <td style="border-top: 2px solid black;">{{ '%.2f' | format(collector.byteCodeCache.memory.sizeInMb) }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div>
         <h3>Hit ratio</h3>
