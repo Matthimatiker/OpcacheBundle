@@ -38,8 +38,13 @@
 {% endblock %}
 
 {% block head %}
-    {# Optional, if you need your own JS or CSS files. #}
-    {{ parent() }} {# Use parent() to keep the default styles #}
+    {{ parent() }}
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>#}
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.0/dc.min.js" charset="utf-8"></script>#}
+    {#<style rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.0/dc.css" media="all" />#}
+
+    {# Chart.js documentation at http://www.chartjs.org/docs #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js" charset="utf-8"></script>
 {% endblock %}
 
 {% block menu %}
@@ -51,9 +56,50 @@
 {% endblock %}
 
 {% block panel %}
-    {# Optional, for showing the most details. #}
+    {# Shows details about the cache state. #}
     <h2>Opcache</h2>
-    <p>
-        <em>Major information goes here</em>
-    </p>
+    <div>
+        <h3>Memory usage</h3>
+        <canvas id="byteCodeCacheMemoryUsage" width="300" height="300"></canvas>
+        <script type="application/javascript">
+            var ctx = document.getElementById("byteCodeCacheMemoryUsage").getContext("2d");
+            var data = [
+                {
+                    value: {{ collector.byteCodeCache.memory.usageInMb }},
+                    color:"#F7464A",
+                    highlight: "#FF5A5E",
+                    label: "Used (in MB)"
+                },
+                {
+                    value: {{ collector.byteCodeCache.memory.sizeInMb - collector.byteCodeCache.memory.usageInMb }},
+                    color: "#46BFBD",
+                    highlight: "#5AD3D1",
+                    label: "Free (in MB)"
+                }
+            ];
+            new Chart(ctx).Doughnut(data);
+        </script>
+    </div>
+    <div>
+        <h3>Hit ratio</h3>
+        <canvas id="byteCodeCacheHitRatio" width="300" height="300"></canvas>
+        <script type="application/javascript">
+            var ctx = document.getElementById("byteCodeCacheHitRatio").getContext("2d");
+            var data = [
+                {
+                    value: {{ collector.byteCodeCache.statistics.hits }},
+                    color:"#F7464A",
+                    highlight: "#FF5A5E",
+                    label: "Hits"
+                },
+                {
+                    value: {{ collector.byteCodeCache.statistics.misses }},
+                    color: "#46BFBD",
+                    highlight: "#5AD3D1",
+                    label: "Misses"
+                }
+            ];
+            new Chart(ctx).Doughnut(data);
+        </script>
+    </div>
 {% endblock %}
