@@ -48,7 +48,7 @@ class MemoryUsage
      */
     public function getFreeInMb()
     {
-
+        return $this->getSizeInMb() - $this->getUsageInMb();
     }
 
     /**

@@ -48,7 +48,7 @@ class MemoryUsageTest extends \PHPUnit_Framework_TestCase
 
     public function testFreeMemoryIsCalculatedCorrectly()
     {
-        $this->assertEquals(50.0, $this->memoryUsage->getFreeInMb());
+        $this->assertEquals(50.0, $this->memoryUsage->getFreeInMb(), 'Free memory calculation invalid.', 0.001);
     }
 
     public function testIsFullReturnsFalseIfSomeMemoryIsFree()
