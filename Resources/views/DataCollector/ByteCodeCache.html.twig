@@ -124,25 +124,33 @@
     </div>
     <div>
         <h3>Hit ratio</h3>
-        <canvas id="byteCodeCacheHitRatio" width="300" height="300"></canvas>
+        <div id="byteCodeCacheHitRatio"></div>
         <script type="application/javascript">
             (function () {
-                var ctx = document.getElementById("byteCodeCacheHitRatio").getContext("2d");
-                var data = [
-                    {
-                        value: {{ collector.byteCodeCache.statistics.hits }},
-                        color: "#F7464A",
-                        highlight: "#FF5A5E",
-                        label: "Hits"
+                c3.generate({
+                    bindto: "#byteCodeCacheHitRatio",
+                    data: {
+                        columns: [
+                            ['Hits', {{ collector.byteCodeCache.statistics.hits }}],
+                            ['Misses', {{ collector.byteCodeCache.statistics.misses }}]
+                        ],
+                        type: 'donut'
                     },
-                    {
-                        value: {{ collector.byteCodeCache.statistics.misses }},
-                        color: "#46BFBD",
-                        highlight: "#5AD3D1",
-                        label: "Misses"
+                    color: {
+                        pattern: ['#F7464A', '#46BFBD']
+                    },
+                    donut: {
+                        title: "{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent) }}% hit rate",
+                        expand: false
+                    },
+                    tooltip: {
+                        format: {
+                            value: function (value) {
+                                return value;
+                            }
+                        }
                     }
-                ];
-                new Chart(ctx).Doughnut(data);
+                });
             })();
         </script>
     </div>
