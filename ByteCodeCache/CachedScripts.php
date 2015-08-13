@@ -2,8 +2,6 @@
 
 namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 
-use Symfony\Component\Validator\Constraints\All;
-
 /**
  * Provides access to data about cached scripts.
  */
