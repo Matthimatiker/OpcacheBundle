@@ -13,6 +13,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">.</directory>
+            <exclude>
+                <directory>vendor</directory>
+            </exclude>
         </whitelist>
     </filter>
 
