@@ -83,10 +83,11 @@
                             ['Used', {{ collector.byteCodeCache.memory.usageInMb }}],
                             ['Free', {{ collector.byteCodeCache.memory.freeInMb }}]
                         ],
+                        colors: {
+                            'Used': '#F7464A',
+                            'Free': '#46BFBD'
+                        },
                         type: 'donut'
-                    },
-                    color: {
-                        pattern: ['#F7464A', '#46BFBD']
                     },
                     donut: {
                         title: "{{ '%.2f' | format(collector.byteCodeCache.memory.freeInMb) }} MB free",
@@ -138,10 +139,11 @@
                             ['Misses', {{ collector.byteCodeCache.statistics.misses }}],
                             ['Hits', {{ collector.byteCodeCache.statistics.hits }}]
                         ],
+                        colors: {
+                            'Misses': '#F7464A',
+                            'Hits': '#46BFBD'
+                        },
                         type: 'donut'
-                    },
-                    color: {
-                        pattern: ['#F7464A', '#46BFBD']
                     },
                     donut: {
                         title: "{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent) }}% hit rate",
