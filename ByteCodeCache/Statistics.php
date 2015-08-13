@@ -64,4 +64,14 @@ class Statistics
         }
         return ($this->hits / $requests) * 100.0;
     }
+
+    /**
+     * Returns the cache miss rate in percent.
+     *
+     * @return double
+     */
+    public function getMissRateInPercent()
+    {
+
+    }
 }

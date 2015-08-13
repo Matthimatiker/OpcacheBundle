@@ -62,4 +62,26 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
             0.001
         );
     }
+
+    public function testMissRateIsCalculatedCorrectly()
+    {
+        $this->assertEquals(
+            (100 / (200 + 100)) * 100.0,
+            $this->statistics->getMissRateInPercent(),
+            'Miss rate is not calculated correctly.',
+            0.001
+        );
+    }
+
+    public function testMissRateIsCalculatedCorrectlyIfHitsAndMissesAreZero()
+    {
+        $this->statistics = new Statistics(0, 0);
+
+        $this->assertEquals(
+            0.0,
+            $this->statistics->getMissRateInPercent(),
+            'Miss rate is not calculated correctly.',
+            0.001
+        );
+    }
 }
