@@ -72,6 +72,10 @@ class Statistics
      */
     public function getMissRateInPercent()
     {
-
+        $requests = ($this->hits + $this->misses);
+        if ($requests === 0) {
+            return 0.0;
+        }
+        return ($this->misses / $requests) * 100.0;
     }
 }
