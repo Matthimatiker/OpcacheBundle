@@ -2,7 +2,14 @@
 {# @var collector \Matthimatiker\OpcacheBundle\DataCollector\ByteCodeCacheDataCollector #}
 {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
+{% macro number(value, precision = 2) %}
+    {%- set template = '%.' ~ precision ~ 'f' -%}
+    {{- template | format(value) -}}
+{% endmacro %}
+
 {% block toolbar %}
+    {% import _self as cache %}
+
     {% set icon %}
         {# This block appears in the toolbar. #}
         {% set memory_status_color = (collector.byteCodeCache.memory.full) ? 'red' : ((collector.byteCodeCache.memory.usageInPercent) >= 80 ? 'yellow' : 'green') %}
@@ -13,7 +20,7 @@
             </svg>
         </span>
         <span class="sf-toolbar-status sf-toolbar-status-{{ memory_status_color }}">
-            {{ '%.0f' | format(collector.byteCodeCache.memory.usageInMb) }} / {{ '%.0f' | format(collector.byteCodeCache.memory.sizeInMb) }} MB
+            {{ cache.number(collector.byteCodeCache.memory.usageInMb, 0) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb, 0) }} MB
         </span>
     {% endset %}
 
@@ -26,14 +33,14 @@
         <div class="sf-toolbar-info-piece">
             <b>Memory usage</b>
             <span class="sf-toolbar-status sf-toolbar-status-{{ memory_status_color }}">
-                {{ '%.2f' | format(collector.byteCodeCache.memory.usageInMb) }} / {{ '%.2f' | format(collector.byteCodeCache.memory.sizeInMb) }} MB
+                {{ cache.number(collector.byteCodeCache.memory.usageInMb) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb) }} MB
             </span>
         </div>
         {% set hit_ratio_status_color = (collector.byteCodeCache.statistics.hitRateInPercent >= 90.0) ? 'green' : ((collector.byteCodeCache.statistics.hitRateInPercent) >= 70.0 ? 'yellow' : 'red') %}
         <div class="sf-toolbar-info-piece">
             <b>Hit ratio</b>
             <span class="sf-toolbar-status sf-toolbar-status-{{ hit_ratio_status_color }}">
-                {{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent) }}%
+                {{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent) }}%
             </span>
         </div>
     {% endset %}
@@ -76,6 +83,8 @@
 {% endblock %}
 
 {% block panel %}
+    {% import _self as cache %}
+
     {# Shows details about the cache state. #}
     <h2>Opcache</h2>
     <div>
@@ -97,7 +106,7 @@
                         type: 'donut'
                     },
                     donut: {
-                        title: "{{ '%.2f' | format(collector.byteCodeCache.memory.freeInMb) }} MB free",
+                        title: "{{ cache.number(collector.byteCodeCache.memory.freeInMb) }} MB free",
                         expand: false
                     },
                     tooltip: {
@@ -121,15 +130,15 @@
             <tbody>
                 <tr>
                     <th>Used</th>
-                    <td>{{ '%.2f' | format(collector.byteCodeCache.memory.usageInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.usageInMb) }}</td>
                 </tr>
                 <tr>
                     <th>Free</th>
-                    <td>{{ '%.2f' | format(collector.byteCodeCache.memory.freeInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.freeInMb) }}</td>
                 </tr>
                 <tr class="sum">
                     <th>Size</th>
-                    <td>{{ '%.2f' | format(collector.byteCodeCache.memory.sizeInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.sizeInMb) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -153,7 +162,7 @@
                         type: 'donut'
                     },
                     donut: {
-                        title: "{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent) }}% hit rate",
+                        title: "{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent) }}% hit rate",
                         expand: false
                     },
                     tooltip: {
@@ -179,17 +188,17 @@
                 <tr>
                     <th>Hits</th>
                     <td>{{ collector.byteCodeCache.statistics.hits }}</td>
-                    <td>{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent) }}</td>
                 </tr>
                 <tr>
                     <th>Misses</th>
                     <td>{{ collector.byteCodeCache.statistics.misses }}</td>
-                    <td>{{ '%.2f' | format(collector.byteCodeCache.statistics.missRateInPercent) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.statistics.missRateInPercent) }}</td>
                 </tr>
                 <tr class="sum">
                     <th>Requests</th>
                     <td>{{ collector.byteCodeCache.statistics.requests }}</td>
-                    <td>{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent + collector.byteCodeCache.statistics.missRateInPercent) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent + collector.byteCodeCache.statistics.missRateInPercent) }}</td>
                 </tr>
             </tbody>
         </table>
