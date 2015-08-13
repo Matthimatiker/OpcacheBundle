@@ -24,7 +24,7 @@ interface CachedScriptsInterface extends \Traversable, \Countable
      *
      * @return integer
      */
-    public function max();
+    public function getMaxNumberOfCachableScripts();
 
     /**
      * Calculates the ratio of current number of cached scripts in relation to the maximal
