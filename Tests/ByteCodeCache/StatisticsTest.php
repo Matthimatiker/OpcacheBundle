@@ -41,6 +41,11 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(100, $this->statistics->getMisses());
     }
 
+    public function testGetRequestsReturnsCorrectValue()
+    {
+        $this->assertEquals(200 + 100, $this->statistics->getRequests());
+    }
+
     public function testHitRateIsCalculatedCorrectly()
     {
         $this->assertEquals(

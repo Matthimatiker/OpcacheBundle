@@ -52,6 +52,16 @@ class Statistics
     }
 
     /**
+     * Returns the number of cache requests (hits and misses).
+     *
+     * @return integer
+     */
+    public function getRequests()
+    {
+
+    }
+
+    /**
      * Returns the cache hit rate in percent.
      *
      * @return double
