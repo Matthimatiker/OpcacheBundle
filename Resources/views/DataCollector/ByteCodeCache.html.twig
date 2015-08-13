@@ -159,5 +159,32 @@
                 });
             })();
         </script>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Metric</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Percent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Hits</th>
+                    <td>{{ collector.byteCodeCache.statistics.hits }}</td>
+                    <td>{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent) }}</td>
+                </tr>
+                <tr>
+                    <th>Misses</th>
+                    <td>{{ collector.byteCodeCache.statistics.misses }}</td>
+                    <td>{{ '%.2f' | format(collector.byteCodeCache.statistics.missRateInPercent) }}</td>
+                </tr>
+                <tr>
+                    <th style="border-top: 2px solid #d0dbb3;">Requests</th>
+                    <td style="border-top: 2px solid black;">{{ collector.byteCodeCache.statistics.requests }}</td>
+                    <td style="border-top: 2px solid black;">{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent + collector.byteCodeCache.statistics.missRateInPercent) }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 {% endblock %}
