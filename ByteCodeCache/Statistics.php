@@ -58,11 +58,7 @@ class Statistics
      */
     public function getHitRateInPercent()
     {
-        $requests = ($this->hits + $this->misses);
-        if ($requests === 0) {
-            return 0.0;
-        }
-        return ($this->hits / $requests) * 100.0;
+        return $this->getPercentageOfRequests($this->hits);
     }
 
     /**
@@ -72,10 +68,21 @@ class Statistics
      */
     public function getMissRateInPercent()
     {
+        return $this->getPercentageOfRequests($this->misses);
+    }
+
+    /**
+     * Returns the relation of $value to cache requests in percent.
+     *
+     * @param integer $value
+     * @return double
+     */
+    protected function getPercentageOfRequests($value)
+    {
         $requests = ($this->hits + $this->misses);
         if ($requests === 0) {
             return 0.0;
         }
-        return ($this->misses / $requests) * 100.0;
+        return ($value / $requests) * 100.0;
     }
 }
