@@ -50,6 +50,13 @@
             font-size: 200%;
             font-weight: bold;
         }
+
+        tr.sum th {
+            border-top: 2px solid #d0dbb3;
+        }
+        tr.sum td {
+            border-top: 2px solid black;
+        }
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js" charset="utf-8"></script>
@@ -120,9 +127,9 @@
                     <th>Free</th>
                     <td>{{ '%.2f' | format(collector.byteCodeCache.memory.freeInMb) }}</td>
                 </tr>
-                <tr >
-                    <th style="border-top: 2px solid #d0dbb3;">Size</th>
-                    <td style="border-top: 2px solid black;">{{ '%.2f' | format(collector.byteCodeCache.memory.sizeInMb) }}</td>
+                <tr class="sum">
+                    <th>Size</th>
+                    <td>{{ '%.2f' | format(collector.byteCodeCache.memory.sizeInMb) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -179,10 +186,10 @@
                     <td>{{ collector.byteCodeCache.statistics.misses }}</td>
                     <td>{{ '%.2f' | format(collector.byteCodeCache.statistics.missRateInPercent) }}</td>
                 </tr>
-                <tr>
-                    <th style="border-top: 2px solid #d0dbb3;">Requests</th>
-                    <td style="border-top: 2px solid black;">{{ collector.byteCodeCache.statistics.requests }}</td>
-                    <td style="border-top: 2px solid black;">{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent + collector.byteCodeCache.statistics.missRateInPercent) }}</td>
+                <tr class="sum">
+                    <th>Requests</th>
+                    <td>{{ collector.byteCodeCache.statistics.requests }}</td>
+                    <td>{{ '%.2f' | format(collector.byteCodeCache.statistics.hitRateInPercent + collector.byteCodeCache.statistics.missRateInPercent) }}</td>
                 </tr>
             </tbody>
         </table>
