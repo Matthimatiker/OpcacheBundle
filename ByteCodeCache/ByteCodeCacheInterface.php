@@ -28,6 +28,10 @@ interface ByteCodeCacheInterface
      */
     public function statistics();
 
-    // CacheEntry
+    /**
+     * Returns data about cached scripts.
+     *
+     * @return CachedScriptsInterface
+     */
     public function getCachedScripts();
 }
