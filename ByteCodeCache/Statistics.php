@@ -58,7 +58,7 @@ class Statistics
      */
     public function getRequests()
     {
-
+        return $this->hits + $this->misses;
     }
 
     /**
@@ -89,10 +89,9 @@ class Statistics
      */
     protected function getPercentageOfRequests($value)
     {
-        $requests = ($this->hits + $this->misses);
-        if ($requests === 0) {
+        if ($this->getRequests() === 0) {
             return 0.0;
         }
-        return ($value / $requests) * 100.0;
+        return ($value / $this->getRequests()) * 100.0;
     }
 }
