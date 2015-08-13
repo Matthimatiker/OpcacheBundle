@@ -1,3 +1,0 @@
-matthimatiker_opcache_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MatthimatikerOpcacheBundle:Default:index }
