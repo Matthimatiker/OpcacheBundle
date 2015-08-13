@@ -1,6 +1,6 @@
 {
     "name": "matthimatiker/opcache-bundle",
-    "description": "",
+    "description": "Displays the state of the PHP opcache in the Symfony profiler toolbar.",
     "minimum-stability": "stable",
     "license": "MIT",
     "authors": [
