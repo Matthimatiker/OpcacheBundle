@@ -3,7 +3,7 @@
 {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
 {% macro number(value, precision = 2) %}
-    {%- set template = '%.' ~ precision ~ 'f' -%}
+    {%- set template = '%.' ~ precision ~ 'F' -%}
     {{- template | format(value) -}}
 {% endmacro %}
 
