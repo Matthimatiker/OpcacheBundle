@@ -1,0 +1,16 @@
+# http://editorconfig.org
+#
+# This plugin actives .editorconfig support in PHPStorm:
+#    https://plugins.jetbrains.com/plugin/7294
+# The plugin simplifies the management of different formatting rules per project and file type.
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+trim_trailing_whitespace = false

@@ -1,0 +1,27 @@
+{
+    "name": "matthimatiker/opcache-bundle",
+    "description": "",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Molitor",
+            "email": "matthias@matthimatiker.de",
+            "role": "Developer"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "satooshi/php-coveralls": "~0.6"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Matthimatiker\\OpcacheBundle\\": "."
+        }
+    }
+}
