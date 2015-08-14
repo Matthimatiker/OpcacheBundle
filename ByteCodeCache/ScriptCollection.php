@@ -40,31 +40,11 @@ class ScriptCollection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Maximal number of cached scripts.
+     * Returns information about the available script slots.
      *
-     * @return integer
+     * @return ScriptSlots
      */
-    public function getMaxNumberOfSlots()
-    {
-
-    }
-
-    /**
-     * Returns the number of scripts that could be added to the cache.
-     *
-     * @return integer
-     */
-    public function getNumberOfFreeSlots()
-    {
-
-    }
-
-    /**
-     * Calculates the usage of caching slots in percent.
-     *
-     * @return double
-     */
-    public function getSlotUsageInPercent()
+    public function getSlots()
     {
 
     }
