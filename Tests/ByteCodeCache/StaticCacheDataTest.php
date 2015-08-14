@@ -41,7 +41,7 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
         $this->memory     = new MemoryUsage(1.0, 5.0);
         $this->statistics = new Statistics(20, 0);
         $this->scripts    = new ScriptCollection(array($this->createScript()), 2);
-        $this->cacheData  = new StaticCacheData(true, $this->memory, $this->statistics);
+        $this->cacheData  = new StaticCacheData(true, $this->memory, $this->statistics, $this->scripts);
     }
 
     /**

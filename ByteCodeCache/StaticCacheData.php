@@ -23,16 +23,22 @@ class StaticCacheData implements ByteCodeCacheInterface
     protected $statistics = null;
 
     /**
+     * @var ScriptCollection
+     */
+    protected $scripts = null;
+
+    /**
      * @param boolean $enabled
      * @param MemoryUsage $memory
      * @param Statistics $statistics
      * @param ScriptCollection|Script[] $scripts
      */
-    public function __construct($enabled, MemoryUsage $memory, Statistics $statistics, array $scripts = array())
+    public function __construct($enabled, MemoryUsage $memory, Statistics $statistics, $scripts = array())
     {
         $this->enabled    = $enabled;
         $this->memory     = $memory;
         $this->statistics = $statistics;
+        $this->scripts    = (is_array($scripts)) ? new ScriptCollection($scripts) : $scripts;
     }
 
     /**
@@ -72,6 +78,6 @@ class StaticCacheData implements ByteCodeCacheInterface
      */
     public function scripts()
     {
-        // TODO: Implement getCachedScripts() method.
+        return $this->scripts;
     }
 }
