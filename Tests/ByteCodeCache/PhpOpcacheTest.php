@@ -58,7 +58,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             // Used + wasted memory.
             (29836904 + 6619288) / 1024 / 1024,
-            $memory->getUsageInMb(),
+            $memory->getUsedInMb(),
             'Invalid memory usage reported.',
             0.001
         );
@@ -80,7 +80,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             // Used + wasted memory divided by all available memory.
             ((29836904 + 6619288) / (29836904 + 6619288 + 30652672)) * 100.0,
-            $memory->getUsageInPercent(),
+            $memory->getUsedInPercent(),
             'Invalid memory size reported.',
             0.001
         );

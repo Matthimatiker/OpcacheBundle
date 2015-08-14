@@ -31,9 +31,9 @@ class MemoryUsageTest extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
 
-    public function testGetUsageInMbReturnsCorrectValue()
+    public function testGetUsedInMbReturnsCorrectValue()
     {
-        $this->assertEquals(150.0, $this->memoryUsage->getUsageInMb());
+        $this->assertEquals(150.0, $this->memoryUsage->getUsedInMb());
     }
 
     public function testGetSizeReturnsCorrectValue()
@@ -41,9 +41,9 @@ class MemoryUsageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(200.0, $this->memoryUsage->getSizeInMb());
     }
 
-    public function testMemoryUsageInPercentIsCalculatedCorrectly()
+    public function testUsedMemoryInPercentIsCalculatedCorrectly()
     {
-        $this->assertEquals(75.0, $this->memoryUsage->getUsageInPercent(), 'Percentage calculation invalid.', 0.001);
+        $this->assertEquals(75.0, $this->memoryUsage->getUsedInPercent(), 'Percentage calculation invalid.', 0.001);
     }
 
     public function testFreeMemoryIsCalculatedCorrectly()
@@ -74,6 +74,6 @@ class MemoryUsageTest extends \PHPUnit_Framework_TestCase
     {
         $this->memoryUsage = new MemoryUsage(0, 0);
 
-        $this->assertEquals(0.0, $this->memoryUsage->getUsageInPercent(), 'Percentage calculation invalid.', 0.001);
+        $this->assertEquals(0.0, $this->memoryUsage->getUsedInPercent(), 'Percentage calculation invalid.', 0.001);
     }
 }

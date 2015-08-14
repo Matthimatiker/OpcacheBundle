@@ -12,7 +12,7 @@
 
     {% set icon %}
         {# This block appears in the toolbar. #}
-        {% set memory_status_color = (collector.byteCodeCache.memory.full) ? 'red' : ((collector.byteCodeCache.memory.usageInPercent) >= 80 ? 'yellow' : 'green') %}
+        {% set memory_status_color = (collector.byteCodeCache.memory.full) ? 'red' : ((collector.byteCodeCache.memory.usedInPercent) >= 80 ? 'yellow' : 'green') %}
         <span class="icon">
             <svg width="13" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 13 28" enable-background="new 0 0 13 28" xml:space="preserve">
                 <g><rect x="3" y="11" fill="#BCBCBB" width="7" height="9"/></g>
@@ -20,7 +20,7 @@
             </svg>
         </span>
         <span class="sf-toolbar-status sf-toolbar-status-{{ memory_status_color }}">
-            {{ cache.number(collector.byteCodeCache.memory.usageInMb, 0) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb, 0) }} MB
+            {{ cache.number(collector.byteCodeCache.memory.usedInMb, 0) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb, 0) }} MB
         </span>
     {% endset %}
 
@@ -29,11 +29,11 @@
         <div class="sf-toolbar-info-piece">
             <b>Opcache</b>
         </div>
-        {% set memory_status_color = (collector.byteCodeCache.memory.full) ? 'red' : ((collector.byteCodeCache.memory.usageInPercent) >= 80 ? 'yellow' : 'green') %}
+        {% set memory_status_color = (collector.byteCodeCache.memory.full) ? 'red' : ((collector.byteCodeCache.memory.usedInPercent) >= 80 ? 'yellow' : 'green') %}
         <div class="sf-toolbar-info-piece">
             <b>Memory usage</b>
             <span class="sf-toolbar-status sf-toolbar-status-{{ memory_status_color }}">
-                {{ cache.number(collector.byteCodeCache.memory.usageInMb) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb) }} MB
+                {{ cache.number(collector.byteCodeCache.memory.usedInMb) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb) }} MB
             </span>
         </div>
         {% set hit_ratio_status_color = (collector.byteCodeCache.statistics.hitRateInPercent >= 90.0) ? 'green' : ((collector.byteCodeCache.statistics.hitRateInPercent) >= 70.0 ? 'yellow' : 'red') %}
@@ -96,7 +96,7 @@
                     bindto: "#byteCodeCacheMemoryUsage",
                     data: {
                         columns: [
-                            ['Used', {{ collector.byteCodeCache.memory.usageInMb }}],
+                            ['Used', {{ collector.byteCodeCache.memory.usedInMb }}],
                             ['Free', {{ collector.byteCodeCache.memory.freeInMb }}]
                         ],
                         colors: {
@@ -130,7 +130,7 @@
             <tbody>
                 <tr>
                     <th>Used</th>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.usageInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.usedInMb) }}</td>
                 </tr>
                 <tr>
                     <th>Free</th>

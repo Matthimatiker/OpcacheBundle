@@ -16,7 +16,7 @@ class ArrayMapper
         return array(
             'enabled' => $cache->isEnabled(),
             'memory' => array(
-                'usageInMb' => $cache->memory()->getUsageInMb(),
+                'usageInMb' => $cache->memory()->getUsedInMb(),
                 'sizeInMb'  => $cache->memory()->getSizeInMb()
             ),
             'statistics' => array(

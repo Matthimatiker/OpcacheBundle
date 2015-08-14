@@ -12,7 +12,7 @@ class MemoryUsage
      *
      * @var double
      */
-    protected $usageInMb = null;
+    protected $usedInMb = null;
 
     /**
      * Maximal cache size in MB.
@@ -24,10 +24,11 @@ class MemoryUsage
     /**
      * @param double $usageInMb
      * @param double $sizeInMb
+     * @param double $wastedInMb The wasted memory in MB.
      */
-    public function __construct($usageInMb, $sizeInMb)
+    public function __construct($usageInMb, $sizeInMb, $wastedInMb = 0.0)
     {
-        $this->usageInMb = $usageInMb;
+        $this->usedInMb = $usageInMb;
         $this->sizeInMb  = $sizeInMb;
     }
 
@@ -36,9 +37,9 @@ class MemoryUsage
      *
      * @return double
      */
-    public function getUsageInMb()
+    public function getUsedInMb()
     {
-        return $this->usageInMb;
+        return $this->usedInMb;
     }
 
     /**
@@ -48,7 +49,7 @@ class MemoryUsage
      */
     public function getFreeInMb()
     {
-        return $this->getSizeInMb() - $this->getUsageInMb();
+        return $this->getSizeInMb() - $this->getUsedInMb();
     }
 
     /**
@@ -68,12 +69,12 @@ class MemoryUsage
      *
      * @return double
      */
-    public function getUsageInPercent()
+    public function getUsedInPercent()
     {
         if ($this->sizeInMb == 0.0) {
             return 0.0;
         }
-        return ($this->usageInMb / $this->sizeInMb) * 100.0;
+        return ($this->usedInMb / $this->sizeInMb) * 100.0;
     }
 
     /**
@@ -83,6 +84,6 @@ class MemoryUsage
      */
     public function isFull()
     {
-        return $this->usageInMb >= $this->sizeInMb;
+        return $this->usedInMb >= $this->sizeInMb;
     }
 }
