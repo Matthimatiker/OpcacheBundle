@@ -3,6 +3,8 @@
 namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 
 use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\StaticCacheData;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Statistics;
 
@@ -26,6 +28,11 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
     protected $statistics = null;
 
     /**
+     * @var ScriptCollection
+     */
+    protected $scripts = null;
+
+    /**
      * Initializes the test environment.
      */
     protected function setUp()
@@ -33,6 +40,7 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->memory     = new MemoryUsage(1.0, 5.0);
         $this->statistics = new Statistics(20, 0);
+        $this->scripts    = new ScriptCollection(array($this->createScript()), 2);
         $this->cacheData  = new StaticCacheData(true, $this->memory, $this->statistics);
     }
 
@@ -60,5 +68,30 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
     public function testStatisticsReturnsCorrectData()
     {
         $this->assertEquals($this->statistics, $this->cacheData->statistics());
+    }
+
+    public function testScriptsReturnsCorrectData()
+    {
+        $this->assertEquals($this->scripts, $this->cacheData->scripts());
+    }
+
+    public function testScriptsCanBeProvidedAsArray()
+    {
+        $this->cacheData = new StaticCacheData(true, $this->memory, $this->statistics, array($this->createScript()));
+
+        $scripts = $this->cacheData->scripts();
+
+        $this->assertInstanceOf(ScriptCollection::class, $scripts);
+        $this->assertCount(1, $scripts);
+    }
+
+    /**
+     * Creates a Script instance for testing.
+     *
+     * @return Script
+     */
+    protected function createScript()
+    {
+        return new Script('/any/path/to/file.php', 0.3, 2, '2015-01-01 00:00:00');
     }
 }

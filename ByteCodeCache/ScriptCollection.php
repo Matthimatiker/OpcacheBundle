@@ -37,7 +37,7 @@ class ScriptCollection implements \IteratorAggregate, \Countable
      * @param Script[] $scripts
      * @param integer $maxNumberOfSlots The maximal number of cachable scripts
      */
-    public function __construct(array $scripts, $maxNumberOfSlots)
+    public function __construct(array $scripts, $maxNumberOfSlots = PHP_INT_MAX)
     {
         $this->scripts = $scripts;
         $this->slots   = new ScriptSlots(count($scripts), $maxNumberOfSlots);
