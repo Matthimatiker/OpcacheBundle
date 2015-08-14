@@ -8,21 +8,22 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class CachedScript
 {
     /**
-     * The path to the script file.
-     *
-     * @return string
+     * @param \SplFileInfo|string $path
+     * @param double $memoryConsumptionInMb
+     * @param integer $hits
+     * @param \DateTimeInterface|string $lastAccess
      */
-    public function getPath()
+    public function __construct($path, $memoryConsumptionInMb, $hits, $lastAccess)
     {
 
     }
 
     /**
-     * The number of cache hits for this script.
+     * Provides information about the script file.
      *
-     * @return integer
+     * @return \SplFileInfo
      */
-    public function getHits()
+    public function getFile()
     {
 
     }
@@ -33,6 +34,16 @@ class CachedScript
      * @return double
      */
     public function getMemoryConsumptionInMb()
+    {
+
+    }
+
+    /**
+     * The number of cache hits for this script.
+     *
+     * @return integer
+     */
+    public function getHits()
     {
 
     }
