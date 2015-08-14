@@ -7,6 +7,18 @@
     {{- template | format(value) -}}
 {% endmacro %}
 
+{% macro color_green() %}
+    {{- '#759e1a' -}}
+{% endmacro %}
+
+{% macro color_yellow() %}
+    {{- '#ffcc00' -}}
+{% endmacro %}
+
+{% macro color_red() %}
+    {{- '#a33' -}}
+{% endmacro %}
+
 {% block toolbar %}
     {% import _self as cache %}
 
@@ -100,8 +112,8 @@
                             ['Free', {{ collector.byteCodeCache.memory.freeInMb }}]
                         ],
                         colors: {
-                            'Used': '#F7464A',
-                            'Free': '#46BFBD'
+                            'Used': '{{ cache.color_yellow() }}',
+                            'Free': '{{ cache.color_green() }}'
                         },
                         type: 'donut'
                     },
@@ -156,8 +168,8 @@
                             ['Hits', {{ collector.byteCodeCache.statistics.hits }}]
                         ],
                         colors: {
-                            'Misses': '#F7464A',
-                            'Hits': '#46BFBD'
+                            'Misses': '{{ cache.color_red() }}',
+                            'Hits': '{{ cache.color_green() }}'
                         },
                         type: 'donut'
                     },
