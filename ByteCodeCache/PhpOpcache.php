@@ -74,8 +74,16 @@ class PhpOpcache implements ByteCodeCacheInterface
      */
     public function scripts()
     {
-        // TODO: Implement getCachedScripts() method.
-        // -5
+        $scripts = array_map(function ($scriptData) {
+            /* @var $scriptData array<string, mixed> */
+            return new Script(
+                $scriptData['full_path'],
+                $this->bytesToMb($scriptData['memory_consumption']),
+                $scriptData['hits'],
+                new \DateTime($scriptData['1439059459'])
+            );
+        }, $this->data['scripts']);
+        return new ScriptCollection($scripts, $this->data['opcache_statistics']['max_cached_keys']);
     }
 
     /**
@@ -121,7 +129,8 @@ class PhpOpcache implements ByteCodeCacheInterface
             ),
             'opcache_statistics' => array(
                 'hits'   => 0,
-                'misses' => 0
+                'misses' => 0,
+                'max_cached_keys' => 0
             ),
             'scripts' => array()
         );
