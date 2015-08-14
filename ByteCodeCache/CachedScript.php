@@ -8,12 +8,12 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class CachedScript
 {
     /**
-     * @param \SplFileInfo|string $path
+     * @param \SplFileInfo|string $pathOrFile
      * @param double $memoryConsumptionInMb
      * @param integer $hits
      * @param \DateTimeInterface|string $lastAccess
      */
-    public function __construct($path, $memoryConsumptionInMb, $hits, $lastAccess)
+    public function __construct($pathOrFile, $memoryConsumptionInMb, $hits, $lastAccess)
     {
 
     }
