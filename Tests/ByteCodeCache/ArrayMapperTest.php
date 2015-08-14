@@ -5,6 +5,9 @@ namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ArrayMapper;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptSlots;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\StaticCacheData;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Statistics;
 
@@ -109,7 +112,13 @@ class ArrayMapperTest extends \PHPUnit_Framework_TestCase
         return new StaticCacheData(
             true,
             new MemoryUsage(5.0, 15.0),
-            new Statistics(20, 5)
+            new Statistics(20, 5),
+            new ScriptCollection(
+                array(
+                    new Script('/any/file.php', 0.35, 42, '2015-06-01 12:00:00')
+                ),
+                new ScriptSlots(5, 10, 3)
+            )
         );
     }
 }
