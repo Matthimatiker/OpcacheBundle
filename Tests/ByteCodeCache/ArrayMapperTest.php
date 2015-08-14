@@ -54,15 +54,28 @@ class ArrayMapperTest extends \PHPUnit_Framework_TestCase
     public function testByteCodeCacheDataCanBeRestoredFromArray()
     {
         $originalByteCodeCache = $this->createByteCodeCache();
-        $result = $this->mapper->toArray($originalByteCodeCache);
-        $this->assertInternalType('array', $result);
-        $byteCodeCache = $this->mapper->fromArray($result);
-        $this->assertInstanceOf(ByteCodeCacheInterface::class, $byteCodeCache);
+        $byteCodeCache = $this->transformAndRestore($originalByteCodeCache);
 
         $this->assertEquals($originalByteCodeCache->isEnabled(), $byteCodeCache->isEnabled());
         $this->assertEquals($originalByteCodeCache->memory(), $byteCodeCache->memory());
         $this->assertEquals($originalByteCodeCache->statistics(), $byteCodeCache->statistics());
         $this->assertEquals($originalByteCodeCache->scripts(), $byteCodeCache->scripts());
+    }
+
+    /**
+     * Transforms the given byte code cache into an array and
+     * recreates the cache from that array.
+     *
+     * @param ByteCodeCacheInterface $cache
+     * @return ByteCodeCacheInterface
+     */
+    protected function transformAndRestore(ByteCodeCacheInterface $cache)
+    {
+        $result = $this->mapper->toArray($cache);
+        $this->assertInternalType('array', $result);
+        $restoredCache = $this->mapper->fromArray($result);
+        $this->assertInstanceOf(ByteCodeCacheInterface::class, $restoredCache);
+        return $restoredCache;
     }
 
     /**
