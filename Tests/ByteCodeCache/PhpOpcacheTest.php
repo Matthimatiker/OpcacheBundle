@@ -5,6 +5,7 @@ namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\PhpOpcache;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Statistics;
 
@@ -143,6 +144,14 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ScriptCollection::class, $scripts);
         $this->assertCount(count($this->data['scripts']), $scripts);
         $this->assertCount($this->data['opcache_statistics']['num_cached_scripts'], $scripts);
+    }
+
+    public function testProvidesDataAboutCachedScripts()
+    {
+        $scripts = $this->opcache->scripts();
+
+        $this->assertInstanceOf(\Traversable::class, $scripts);
+        $this->assertContainsOnly(Script::class, $scripts);
     }
 
     public function testCacheDeterminesMaxSlotNumberCorrectly()
