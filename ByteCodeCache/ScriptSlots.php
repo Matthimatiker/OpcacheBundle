@@ -8,12 +8,27 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class ScriptSlots
 {
     /**
+     * The number of used slots.
+     *
+     * @var integer
+     */
+    protected $used = null;
+
+    /**
+     * The maximal number of slots.
+     *
+     * @var integer
+     */
+    protected $max = null;
+
+    /**
      * @param integer $used Number of currently used slots.
      * @param integer $max Number of available slots.
      */
     public function __construct($used, $max)
     {
-
+        $this->used = $used;
+        $this->max  = $max;
     }
 
     /**
@@ -23,7 +38,7 @@ class ScriptSlots
      */
     public function used()
     {
-
+        return $this->used;
     }
 
     /**
@@ -33,7 +48,7 @@ class ScriptSlots
      */
     public function free()
     {
-
+        return $this->max() - $this->used();
     }
 
     /**
@@ -43,7 +58,7 @@ class ScriptSlots
      */
     public function max()
     {
-
+        return $this->max;
     }
 
     /**
@@ -53,7 +68,7 @@ class ScriptSlots
      */
     public function getUsageInPercent()
     {
-
+        return ($this->used() / $this->max()) * 100.0;
     }
 
     /**
@@ -63,6 +78,6 @@ class ScriptSlots
      */
     public function full()
     {
-
+        return $this->used() >= $this->max();
     }
 }
