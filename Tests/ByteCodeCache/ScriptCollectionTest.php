@@ -2,14 +2,14 @@
 
 namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 
-use Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScripts;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
 
-class CachedScriptsTest extends \PHPUnit_Framework_TestCase
+class ScriptCollectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * System under test.
      *
-     * @var CachedScripts
+     * @var ScriptCollection
      */
     protected $scripts = null;
 

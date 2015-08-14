@@ -31,7 +31,7 @@ interface ByteCodeCacheInterface
     /**
      * Returns data about cached scripts.
      *
-     * @return CachedScripts
+     * @return ScriptCollection
      */
     public function scripts();
 }

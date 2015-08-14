@@ -17,7 +17,7 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
  *
  * @see \Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScript
  */
-class CachedScripts implements \IteratorAggregate, \Countable
+class ScriptCollection implements \IteratorAggregate, \Countable
 {
     /**
      * @param CachedScript[] $scripts
