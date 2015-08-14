@@ -65,7 +65,7 @@ class StaticCacheData implements ByteCodeCacheInterface
         return $this->statistics;
     }
 
-    public function getCachedScripts()
+    public function scripts()
     {
         // TODO: Implement getCachedScripts() method.
     }

@@ -62,7 +62,7 @@ class ArrayMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($originalByteCodeCache->isEnabled(), $byteCodeCache->isEnabled());
         $this->assertEquals($originalByteCodeCache->memory(), $byteCodeCache->memory());
         $this->assertEquals($originalByteCodeCache->statistics(), $byteCodeCache->statistics());
-        $this->assertEquals($originalByteCodeCache->getCachedScripts(), $byteCodeCache->getCachedScripts());
+        $this->assertEquals($originalByteCodeCache->scripts(), $byteCodeCache->scripts());
     }
 
     /**

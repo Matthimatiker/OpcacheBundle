@@ -67,7 +67,7 @@ class PhpOpcache implements ByteCodeCacheInterface
         );
     }
 
-    public function getCachedScripts()
+    public function scripts()
     {
         // TODO: Implement getCachedScripts() method.
     }
