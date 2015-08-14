@@ -51,7 +51,7 @@ class ArrayMapper
             'slots' => array(
                 'used'   => $scripts->getSlots()->used(),
                 'wasted' => $scripts->getSlots()->wasted(),
-                'max'    =>$scripts->getSlots()->max()
+                'max'    => $scripts->getSlots()->max()
             ),
             'scripts' => array_map(function (Script $script) {
                 return array(
