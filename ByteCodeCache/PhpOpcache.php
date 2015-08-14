@@ -83,7 +83,11 @@ class PhpOpcache implements ByteCodeCacheInterface
                 new \DateTime($scriptData['1439059459'])
             );
         }, $this->data['scripts']);
-        return new ScriptCollection($scripts, $this->data['opcache_statistics']['max_cached_keys']);
+        $slots = new ScriptSlots(
+            $this->data['opcache_statistics']['num_cached_scripts'],
+            $this->data['opcache_statistics']['max_cached_keys']
+        );
+        return new ScriptCollection($scripts, $slots);
     }
 
     /**
@@ -130,7 +134,8 @@ class PhpOpcache implements ByteCodeCacheInterface
             'opcache_statistics' => array(
                 'hits'   => 0,
                 'misses' => 0,
-                'max_cached_keys' => 0
+                'num_cached_scripts' => 0,
+                'max_cached_keys'    => 0
             ),
             'scripts' => array()
         );

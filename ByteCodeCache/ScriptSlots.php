@@ -25,7 +25,7 @@ class ScriptSlots
      * @param integer $used Number of currently used slots.
      * @param integer $max Number of available slots.
      */
-    public function __construct($used, $max)
+    public function __construct($used, $max = PHP_INT_MAX)
     {
         $this->used = $used;
         $this->max  = $max;

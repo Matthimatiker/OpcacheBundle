@@ -16,12 +16,18 @@ class ScriptCollectionTest extends \PHPUnit_Framework_TestCase
     protected $scripts = null;
 
     /**
+     * @var ScriptSlots
+     */
+    protected $slots = null;
+
+    /**
      * Initializes the test environment.
      */
     protected function setUp()
     {
         parent::setUp();
-        $this->scripts = new ScriptCollection($this->createScripts(), 4);
+        $this->slots   = new ScriptSlots(3, 4);
+        $this->scripts = new ScriptCollection($this->createScripts(), $this->slots);
     }
 
     /**
@@ -30,6 +36,7 @@ class ScriptCollectionTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $this->scripts = null;
+        $this->slots   = null;
         parent::tearDown();
     }
 
@@ -44,27 +51,30 @@ class ScriptCollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertContainsOnly(Script::class, $this->scripts);
     }
 
-    public function testCountReturnsNumberOfScripts()
+    public function testCountReturnsNumberOfUsedSlots()
     {
         $this->assertInstanceOf(\Countable::class, $this->scripts);
-        $this->assertCount(2, $this->scripts);
+        $this->assertCount(3, $this->scripts);
     }
 
-    public function testGetSlotsReturnsEqualObjectOnEachCall()
+    public function testGetSlotsReturnCorrectObject()
     {
-        $this->assertEquals($this->scripts->getSlots(), $this->scripts->getSlots());
+        $this->assertEquals($this->slots, $this->scripts->getSlots());
     }
 
-    public function testMaxNumberOfSlotsIsCorrect()
+    public function testSlotObjectIsCreatedAutomaticallyIfOmitted()
     {
+        $this->scripts = new ScriptCollection(array());
+
         $slots = $this->scripts->getSlots();
 
         $this->assertInstanceOf(ScriptSlots::class, $slots);
-        $this->assertEquals(4, $slots->max());
     }
 
-    public function testNumberOfUsedSlotsIsCorrect()
+    public function testNumberOfUsedSlotsIsDetectedAutomaticallyIfSlotObjectIsOmitted()
     {
+        $this->scripts = new ScriptCollection($this->createScripts());
+
         $slots = $this->scripts->getSlots();
 
         $this->assertInstanceOf(ScriptSlots::class, $slots);
@@ -80,7 +90,7 @@ class ScriptCollectionTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             new Script('/tmp/first.php', 0.1, 2, '2015-01-01 00:00:00'),
-            new Script('/tmp/second.php', 0.5, 42, '2015-06-01 00:00:00'),
+            new Script('/tmp/second.php', 0.5, 42, '2015-06-01 00:00:00')
         );
     }
 }

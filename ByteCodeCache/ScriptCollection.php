@@ -35,12 +35,15 @@ class ScriptCollection implements \IteratorAggregate, \Countable
 
     /**
      * @param Script[] $scripts
-     * @param integer $maxNumberOfSlots The maximal number of cachable scripts
+     * @param ScriptSlots $slots Information about the available file slots.
      */
-    public function __construct(array $scripts, $maxNumberOfSlots = PHP_INT_MAX)
+    public function __construct(array $scripts, ScriptSlots $slots = null)
     {
         $this->scripts = $scripts;
-        $this->slots   = new ScriptSlots(count($scripts), $maxNumberOfSlots);
+        if ($slots === null) {
+            $slots = new ScriptSlots(count($scripts));
+        }
+        $this->slots = $slots;
     }
 
     /**
@@ -71,6 +74,6 @@ class ScriptCollection implements \IteratorAggregate, \Countable
      */
     public function count()
     {
-        return count($this->scripts);
+        return $this->slots->used();
     }
 }
