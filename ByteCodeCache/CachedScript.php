@@ -8,6 +8,34 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class CachedScript
 {
     /**
+     * Information about the cached file.
+     *
+     * @var \SplFileInfo
+     */
+    protected $file = null;
+
+    /**
+     * Memory consumption in the cache in MB.
+     *
+     * @var double
+     */
+    protected $memoryConsumptionInMb = null;
+
+    /**
+     * Number of cache hits for this script.
+     *
+     * @var integer
+     */
+    protected $hits = null;
+
+    /**
+     * The last time that this script was requested from cache.
+     *
+     * @var \DateTimeInterface
+     */
+    protected $lastAccess = null;
+
+    /**
      * @param \SplFileInfo|string $pathOrFile
      * @param double $memoryConsumptionInMb
      * @param integer $hits
@@ -15,7 +43,10 @@ class CachedScript
      */
     public function __construct($pathOrFile, $memoryConsumptionInMb, $hits, $lastAccess)
     {
-
+        $this->file = (is_string($pathOrFile)) ? new \SplFileInfo($pathOrFile) : $pathOrFile;
+        $this->memoryConsumptionInMb = $memoryConsumptionInMb;
+        $this->hits = $hits;
+        $this->lastAccess = (is_string($lastAccess)) ? new \DateTimeImmutable($lastAccess) : $lastAccess;
     }
 
     /**
@@ -25,7 +56,7 @@ class CachedScript
      */
     public function getFile()
     {
-
+        return $this->file;
     }
 
     /**
@@ -35,7 +66,7 @@ class CachedScript
      */
     public function getMemoryConsumptionInMb()
     {
-
+        return $this->memoryConsumptionInMb;
     }
 
     /**
@@ -45,7 +76,7 @@ class CachedScript
      */
     public function getHits()
     {
-
+        return $this->hits;
     }
 
     /**
@@ -55,6 +86,6 @@ class CachedScript
      */
     public function getLastAccess()
     {
-
+        return $this->lastAccess;
     }
 }
