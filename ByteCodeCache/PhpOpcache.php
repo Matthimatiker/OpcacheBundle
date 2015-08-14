@@ -80,7 +80,7 @@ class PhpOpcache implements ByteCodeCacheInterface
                 $scriptData['full_path'],
                 $this->bytesToMb($scriptData['memory_consumption']),
                 $scriptData['hits'],
-                new \DateTime('@' . $scriptData['last_used_timestamp'])
+                new \DateTimeImmutable('@' . $scriptData['last_used_timestamp'])
             );
         }, $this->data['scripts']);
         return new ScriptCollection($scripts, $this->calculateCacheSlots());
