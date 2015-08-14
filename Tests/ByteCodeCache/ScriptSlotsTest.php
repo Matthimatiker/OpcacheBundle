@@ -75,10 +75,19 @@ class ScriptSlotsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             (2 / 6) * 100.0,
-            $this->slots->getUsedInPercent(),
+            $this->slots->getWastedInPercent(),
             'Wasted slot calculation invalid.',
             0.001
         );
+    }
+
+    public function testPercentCalculationWorksIfSlotsAreZero()
+    {
+        $this->slots = new ScriptSlots(0, 0, 0);
+
+        $this->assertEquals(0.0, $this->slots->getUsedInPercent());
+        $this->assertEquals(0.0, $this->slots->getWastedInPercent());
+        $this->assertEquals(0.0, $this->slots->getFreeInPercent());
     }
 
     public function testFullReturnsFalseIfAtLeastOneSlotIsFree()
