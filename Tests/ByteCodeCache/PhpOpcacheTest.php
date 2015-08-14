@@ -5,6 +5,7 @@ namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\PhpOpcache;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Statistics;
 
 class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
@@ -17,13 +18,20 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     protected $opcache = null;
 
     /**
+     * The data that is passed to the cache instance.
+     *
+     * @var array<string, mixed>
+     */
+    protected $data = null;
+
+    /**
      * Initializes the test environment.
      */
     protected function setUp()
     {
         parent::setUp();
-        $data = require(__DIR__ . '/_files/PhpOpcache/active_cache.php');
-        $this->opcache = new PhpOpcache($data);
+        $this->data    = require(__DIR__ . '/_files/PhpOpcache/active_cache.php');
+        $this->opcache = new PhpOpcache($this->data);
     }
 
     /**
@@ -32,6 +40,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $this->opcache = null;
+        $this->data    = null;
         parent::tearDown();
     }
 
@@ -125,5 +134,21 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->opcache->isEnabled());
         $this->assertInstanceOf(MemoryUsage::class, $this->opcache->memory());
         $this->assertInstanceOf(Statistics::class, $this->opcache->statistics());
+    }
+
+    public function testReturnsCorrectNumberOfCachedScripts()
+    {
+        $scripts = $this->opcache->scripts();
+
+        $this->assertInstanceOf(ScriptCollection::class, $scripts);
+        $this->assertCount(count($this->data['scripts']), $scripts);
+    }
+
+    public function testCacheDeterminesMaxSlotNumberCorrectly()
+    {
+        $scripts = $this->opcache->scripts();
+
+        $this->assertInstanceOf(ScriptCollection::class, $scripts);
+        $this->assertEquals(42, $scripts->getSlots()->max());
     }
 }
