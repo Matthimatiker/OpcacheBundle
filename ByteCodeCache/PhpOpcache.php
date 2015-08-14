@@ -83,11 +83,23 @@ class PhpOpcache implements ByteCodeCacheInterface
                 new \DateTime($scriptData['1439059459'])
             );
         }, $this->data['scripts']);
-        $slots = new ScriptSlots(
-            $this->data['opcache_statistics']['num_cached_scripts'],
-            $this->data['opcache_statistics']['max_cached_keys']
+        return new ScriptCollection($scripts, $this->calculateCacheSlots());
+    }
+
+    /**
+     * Calculates cache slot statistics.
+     *
+     * @return ScriptSlots
+     */
+    protected function calculateCacheSlots()
+    {
+        $cachedScripts = $this->data['opcache_statistics']['num_cached_scripts'];
+        $wasted        = $this->data['opcache_statistics']['num_cached_keys'] - $cachedScripts;
+        return new ScriptSlots(
+            $cachedScripts,
+            $this->data['opcache_statistics']['max_cached_keys'],
+            $wasted
         );
-        return new ScriptCollection($scripts, $slots);
     }
 
     /**
