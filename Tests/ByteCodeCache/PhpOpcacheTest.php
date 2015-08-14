@@ -161,4 +161,25 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ScriptCollection::class, $scripts);
         $this->assertEquals($this->data['opcache_statistics']['max_cached_keys'], $scripts->getSlots()->max());
     }
+
+    public function testCacheDeterminesNumberOfUsedSlotsCorrectly()
+    {
+        $scripts = $this->opcache->scripts();
+
+        $this->assertInstanceOf(ScriptCollection::class, $scripts);
+        $this->assertEquals($this->data['opcache_statistics']['num_cached_scripts'], $scripts->getSlots()->used());
+    }
+
+    public function testCacheDeterminesNumberOfWastedSlotsCorrectly()
+    {
+        $scripts = $this->opcache->scripts();
+
+        $this->assertInstanceOf(ScriptCollection::class, $scripts);
+        $allCacheEntries = $this->data['opcache_statistics']['num_cached_keys'];
+        $wasted = $allCacheEntries - $this->data['opcache_statistics']['num_cached_scripts'];
+        $this->assertEquals(
+            $wasted,
+            $scripts->getSlots()->wasted()
+        );
+    }
 }
