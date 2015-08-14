@@ -19,7 +19,7 @@ class ScriptSlotsTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->slots = new ScriptSlots(3, 4);
+        $this->slots = new ScriptSlots(3, 6, 2);
     }
 
     /**
@@ -41,14 +41,44 @@ class ScriptSlotsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $this->slots->free());
     }
 
+    public function testWastedReturnsCorrectValue()
+    {
+        $this->assertEquals(2, $this->slots->wasted());
+    }
+
     public function testMaxReturnsCorrectValue()
     {
-        $this->assertEquals(4, $this->slots->max());
+        $this->assertEquals(6, $this->slots->max());
     }
 
     public function testUsedSlotsInPercentAreCalculatedCorrectly()
     {
-        $this->assertEquals(75.0, $this->slots->getUsedInPercent(), 'Usage calculation invalid.', 0.001);
+        $this->assertEquals(
+            (3 / 6) * 100.0,
+            $this->slots->getUsedInPercent(),
+            'Used slot calculation invalid.',
+            0.001
+        );
+    }
+
+    public function testFreeSlotsInPercentAreCalculatedCorrectly()
+    {
+        $this->assertEquals(
+            (1 / 6) * 100.0,
+            $this->slots->getFreeInPercent(),
+            'Free slot calculation invalid.',
+            0.001
+        );
+    }
+
+    public function testWastedSlotsInPercentAreCalculatedCorrectly()
+    {
+        $this->assertEquals(
+            (2 / 6) * 100.0,
+            $this->slots->getUsedInPercent(),
+            'Wasted slot calculation invalid.',
+            0.001
+        );
     }
 
     public function testFullReturnsFalseIfAtLeastOneSlotIsFree()
@@ -66,6 +96,13 @@ class ScriptSlotsTest extends \PHPUnit_Framework_TestCase
     public function testFullReturnsTrueIfMoreSlotsThanAvailableAreInUse()
     {
         $this->slots = new ScriptSlots(5, 4);
+
+        $this->assertTrue($this->slots->full());
+    }
+
+    public function testFullReturnsTrueIfUsedPlusWastedSlotsReachMaxSlots()
+    {
+        $this->slots = new ScriptSlots(1, 4, 3);
 
         $this->assertTrue($this->slots->full());
     }
