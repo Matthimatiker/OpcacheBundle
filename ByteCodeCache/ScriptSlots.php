@@ -61,7 +61,7 @@ class ScriptSlots
      *
      * @return boolean
      */
-    public function isFull()
+    public function full()
     {
 
     }
