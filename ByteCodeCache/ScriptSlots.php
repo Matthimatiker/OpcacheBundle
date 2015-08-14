@@ -24,8 +24,9 @@ class ScriptSlots
     /**
      * @param integer $used Number of currently used slots.
      * @param integer $max Number of available slots.
+     * @param integer $wasted Number of wasted slots that are not usable.
      */
-    public function __construct($used, $max = PHP_INT_MAX)
+    public function __construct($used, $max = PHP_INT_MAX, $wasted = 0)
     {
         $this->used = $used;
         $this->max  = $max;
@@ -52,6 +53,16 @@ class ScriptSlots
     }
 
     /**
+     * Returns the number of wasted slots.
+     *
+     * @return integer
+     */
+    public function wasted()
+    {
+
+    }
+
+    /**
      * Returns the maximal number of available script slots.
      *
      * @return integer
@@ -62,13 +73,33 @@ class ScriptSlots
     }
 
     /**
-     * Returns the slot usage in percent.
+     * Returns the used slots in percent.
      *
      * @return double
      */
-    public function getUsageInPercent()
+    public function getUsedInPercent()
     {
         return ($this->used() / $this->max()) * 100.0;
+    }
+
+    /**
+     * Returns the free slots in percent.
+     *
+     * @return double
+     */
+    public function getFreeInPercent()
+    {
+
+    }
+
+    /**
+     * Returns the wasted slots in percent.
+     *
+     * @return double
+     */
+    public function getWastedInPercent()
+    {
+
     }
 
     /**

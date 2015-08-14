@@ -46,9 +46,9 @@ class ScriptSlotsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, $this->slots->max());
     }
 
-    public function testUsageInPercentIsCalculatedCorrectly()
+    public function testUsedSlotsInPercentAreCalculatedCorrectly()
     {
-        $this->assertEquals(75.0, $this->slots->getUsageInPercent(), 'Usage calculation invalid.', 0.001);
+        $this->assertEquals(75.0, $this->slots->getUsedInPercent(), 'Usage calculation invalid.', 0.001);
     }
 
     public function testFullReturnsFalseIfAtLeastOneSlotIsFree()
