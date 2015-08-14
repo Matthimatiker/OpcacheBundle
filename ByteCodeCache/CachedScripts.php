@@ -3,9 +3,21 @@
 namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 
 /**
- * Provides access to data about cached scripts.
+ * Provides access to information about cached scripts.
+ *
+ * Counting returns the number of currently cached scripts:
+ *
+ *     $numberOfCachedScripts = count($scripts);
+ *
+ * Iterating over the collection provides information about each cached script:
+ *
+ *     foreach ($script as $script) {
+ *         // $script is an instance of \Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScript
+ *     }
+ *
+ * @see \Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScript
  */
-class CachedScripts implements CachedScriptsInterface, \IteratorAggregate
+class CachedScripts implements \IteratorAggregate, \Countable
 {
     /**
      * Iterates over the cached scripts.
@@ -25,7 +37,7 @@ class CachedScripts implements CachedScriptsInterface, \IteratorAggregate
      */
     public function getMaxNumberOfCachableScripts()
     {
-        // TODO: Implement getMaxNumberOfCachableScripts() method.
+
     }
 
     /**
@@ -36,7 +48,7 @@ class CachedScripts implements CachedScriptsInterface, \IteratorAggregate
      */
     public function getUsageInPercent()
     {
-        // TODO: Implement getUsageInPercent() method.
+
     }
 
     /**
