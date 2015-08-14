@@ -20,6 +20,15 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 class CachedScripts implements \IteratorAggregate, \Countable
 {
     /**
+     * @param CachedScript[] $scripts
+     * @param integer $maxNumberOfSlots The maximal number of cachable scripts
+     */
+    public function __construct(array $scripts, $maxNumberOfSlots)
+    {
+
+    }
+
+    /**
      * Iterates over the cached scripts.
      *
      * @return \Traversable
@@ -55,7 +64,7 @@ class CachedScripts implements \IteratorAggregate, \Countable
      *
      * @return double
      */
-    public function getUsageInPercent()
+    public function getSlotUsageInPercent()
     {
 
     }
