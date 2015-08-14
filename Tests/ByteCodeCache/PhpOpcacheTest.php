@@ -142,6 +142,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(ScriptCollection::class, $scripts);
         $this->assertCount(count($this->data['scripts']), $scripts);
+        $this->assertCount($this->data['opcache_statistics']['num_cached_scripts'], $scripts);
     }
 
     public function testCacheDeterminesMaxSlotNumberCorrectly()
@@ -149,6 +150,6 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $scripts = $this->opcache->scripts();
 
         $this->assertInstanceOf(ScriptCollection::class, $scripts);
-        $this->assertEquals(42, $scripts->getSlots()->max());
+        $this->assertEquals($this->data['opcache_statistics']['max_cached_keys'], $scripts->getSlots()->max());
     }
 }
