@@ -35,14 +35,23 @@ class CachedScripts implements \IteratorAggregate, \Countable
      *
      * @return integer
      */
-    public function getMaxNumberOfCachableScripts()
+    public function getMaxNumberOfSlots()
     {
 
     }
 
     /**
-     * Calculates the ratio of current number of cached scripts in relation to the maximal
-     * number of cachable scripts in percent.
+     * Returns the number of scripts that could be added to the cache.
+     *
+     * @return integer
+     */
+    public function getNumberOfFreeSlots()
+    {
+
+    }
+
+    /**
+     * Calculates the usage of caching slots in percent.
      *
      * @return double
      */
