@@ -23,8 +23,7 @@ class ArrayMapper
                 'hits'   => $cache->statistics()->getHits(),
                 'misses' => $cache->statistics()->getMisses()
             ),
-            'cachedScripts' => array(
-            )
+            'cachedScripts' => $this->scriptsToArray($cache->scripts())
         );
     }
 
@@ -38,7 +37,48 @@ class ArrayMapper
             $data['enabled'],
             new MemoryUsage($data['memory']['usedInMb'], $data['memory']['sizeInMb']),
             new Statistics($data['statistics']['hits'], $data['statistics']['misses']),
-            $data['cachedScripts']
+            $this->scriptsFromArray($data['cachedScripts'])
         );
+    }
+
+    /**
+     * @param ScriptCollection $scripts
+     * @return array<string, mixed>
+     */
+    protected function scriptsToArray(ScriptCollection $scripts)
+    {
+        return array(
+            'slots' => array(
+                'used'   => $scripts->getSlots()->used(),
+                'wasted' => $scripts->getSlots()->wasted(),
+                'max'    =>$scripts->getSlots()->max()
+            ),
+            'scripts' => array_map(function (Script $script) {
+                return array(
+                    'path' => $script->getFile()->getPathname(),
+                    'memoryConsumptionInMb' => $script->getMemoryConsumptionInMb(),
+                    'hits' => $script->getHits(),
+                    'lastAccess' => $script->getLastAccess()->format('Y-m-d H:i:s')
+                );
+            }, iterator_to_array($scripts))
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @return ScriptCollection
+     */
+    protected function scriptsFromArray(array $data)
+    {
+        $slots   = new ScriptSlots($data['slots']['used'], $data['slots']['max'], $data['slots']['wasted']);
+        $scripts = array_map(function (array $scriptData) {
+            return new Script(
+                $scriptData['path'],
+                $scriptData['memoryConsumptionInMb'],
+                $scriptData['hits'],
+                new \DateTimeImmutable($scriptData['lastAccess'])
+            );
+        }, $data['scripts']);
+        return new ScriptCollection($scripts, $slots);
     }
 }
