@@ -15,12 +15,12 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
  *         // $script is an instance of \Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScript
  *     }
  *
- * @see \Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScript
+ * @see \Matthimatiker\OpcacheBundle\ByteCodeCache\Script
  */
 class ScriptCollection implements \IteratorAggregate, \Countable
 {
     /**
-     * @param CachedScript[] $scripts
+     * @param Script[] $scripts
      * @param integer $maxNumberOfSlots The maximal number of cachable scripts
      */
     public function __construct(array $scripts, $maxNumberOfSlots)
@@ -32,7 +32,7 @@ class ScriptCollection implements \IteratorAggregate, \Countable
      * Iterates over the cached scripts.
      *
      * @return \Traversable
-     * @see \Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScript
+     * @see \Matthimatiker\OpcacheBundle\ByteCodeCache\Script
      */
     public function getIterator()
     {

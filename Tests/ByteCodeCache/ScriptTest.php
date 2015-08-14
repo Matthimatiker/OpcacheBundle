@@ -2,14 +2,14 @@
 
 namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 
-use Matthimatiker\OpcacheBundle\ByteCodeCache\CachedScript;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
 
-class CachedScriptTest extends \PHPUnit_Framework_TestCase
+class ScriptTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * System under test.
      *
-     * @var CachedScript
+     * @var Script
      */
     protected $script = null;
 
@@ -19,7 +19,7 @@ class CachedScriptTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->script = new CachedScript(
+        $this->script = new Script(
             '/tmp/my/script/file.php',
             0.75,
             42,
@@ -83,7 +83,7 @@ class CachedScriptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetLastAccessReturnsCorrectDateIfProvidedAsString()
     {
-        $this->script = new CachedScript(
+        $this->script = new Script(
             '/any/path/file.php',
             0.1,
             0,
@@ -98,7 +98,7 @@ class CachedScriptTest extends \PHPUnit_Framework_TestCase
     public function testGetFileReturnsCorrectObjectIfProvidedAsFileObject()
     {
         $originalFile = new \SplFileInfo('/any/path/file.php');
-        $this->script = new CachedScript(
+        $this->script = new Script(
             $originalFile,
             0.1,
             0,

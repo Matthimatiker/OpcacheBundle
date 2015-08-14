@@ -5,7 +5,7 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 /**
  * Provides information about a single cached script.
  */
-class CachedScript
+class Script
 {
     /**
      * Information about the cached file.
