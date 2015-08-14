@@ -15,6 +15,13 @@ class ScriptSlots
     protected $used = null;
 
     /**
+     * The number of wasted slots.
+     *
+     * @var integer
+     */
+    protected $wasted = null;
+
+    /**
      * The maximal number of slots.
      *
      * @var integer
@@ -28,8 +35,9 @@ class ScriptSlots
      */
     public function __construct($used, $max = PHP_INT_MAX, $wasted = 0)
     {
-        $this->used = $used;
-        $this->max  = $max;
+        $this->used   = $used;
+        $this->max    = $max;
+        $this->wasted = $wasted;
     }
 
     /**
@@ -49,7 +57,7 @@ class ScriptSlots
      */
     public function free()
     {
-        return $this->max() - $this->used();
+        return $this->max() - ($this->used() + $this->wasted());
     }
 
     /**
@@ -59,7 +67,7 @@ class ScriptSlots
      */
     public function wasted()
     {
-
+        return $this->wasted;
     }
 
     /**
@@ -79,7 +87,7 @@ class ScriptSlots
      */
     public function getUsedInPercent()
     {
-        return ($this->used() / $this->max()) * 100.0;
+        return $this->getPercentageOfSlots($this->used());
     }
 
     /**
@@ -89,7 +97,7 @@ class ScriptSlots
      */
     public function getFreeInPercent()
     {
-
+        return $this->getPercentageOfSlots($this->free());
     }
 
     /**
@@ -99,7 +107,7 @@ class ScriptSlots
      */
     public function getWastedInPercent()
     {
-
+        return $this->getPercentageOfSlots($this->wasted());
     }
 
     /**
@@ -109,6 +117,20 @@ class ScriptSlots
      */
     public function full()
     {
-        return $this->used() >= $this->max();
+        return $this->free() <= 0;
+    }
+
+    /**
+     * Calculates $value as percentage of max slots.
+     *
+     * @param integer $value
+     * @return double
+     */
+    protected function getPercentageOfSlots($value)
+    {
+        if ($this->max() === 0) {
+            return 0.0;
+        }
+        return ($value / $this->max()) * 100.0;
     }
 }
