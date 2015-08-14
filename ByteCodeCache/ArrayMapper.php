@@ -16,7 +16,7 @@ class ArrayMapper
         return array(
             'enabled' => $cache->isEnabled(),
             'memory' => array(
-                'usageInMb' => $cache->memory()->getUsedInMb(),
+                'usedInMb' => $cache->memory()->getUsedInMb(),
                 'sizeInMb'  => $cache->memory()->getSizeInMb()
             ),
             'statistics' => array(
@@ -36,7 +36,7 @@ class ArrayMapper
     {
         return new StaticCacheData(
             $data['enabled'],
-            new MemoryUsage($data['memory']['usageInMb'], $data['memory']['sizeInMb']),
+            new MemoryUsage($data['memory']['usedInMb'], $data['memory']['sizeInMb']),
             new Statistics($data['statistics']['hits'], $data['statistics']['misses']),
             $data['cachedScripts']
         );
