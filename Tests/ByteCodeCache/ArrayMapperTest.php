@@ -51,14 +51,35 @@ class ArrayMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ByteCodeCacheInterface::class, $byteCodeCache);
     }
 
-    public function testByteCodeCacheDataCanBeRestoredFromArray()
+    public function testEnabledStateCanBeRestoredFromArray()
     {
         $originalByteCodeCache = $this->createByteCodeCache();
         $byteCodeCache = $this->transformAndRestore($originalByteCodeCache);
 
         $this->assertEquals($originalByteCodeCache->isEnabled(), $byteCodeCache->isEnabled());
+    }
+
+    public function testMemoryCanBeRestoredFromArray()
+    {
+        $originalByteCodeCache = $this->createByteCodeCache();
+        $byteCodeCache = $this->transformAndRestore($originalByteCodeCache);
+
         $this->assertEquals($originalByteCodeCache->memory(), $byteCodeCache->memory());
+    }
+
+    public function testStatisticsCanBeRestoredFromArray()
+    {
+        $originalByteCodeCache = $this->createByteCodeCache();
+        $byteCodeCache = $this->transformAndRestore($originalByteCodeCache);
+
         $this->assertEquals($originalByteCodeCache->statistics(), $byteCodeCache->statistics());
+    }
+
+    public function testScriptsCanBeRestoredFromArray()
+    {
+        $originalByteCodeCache = $this->createByteCodeCache();
+        $byteCodeCache = $this->transformAndRestore($originalByteCodeCache);
+
         $this->assertEquals($originalByteCodeCache->scripts(), $byteCodeCache->scripts());
     }
 
