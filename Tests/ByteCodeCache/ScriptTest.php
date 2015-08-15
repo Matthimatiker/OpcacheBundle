@@ -61,6 +61,21 @@ class ScriptTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetMemoryConsumptionInByteReturnsInteger()
+    {
+        $this->assertInternalType('integer', $this->script->getMemoryConsumptionInBytes());
+    }
+
+    public function testGetMemoryConsumptionInByteReturnsCorrectValue()
+    {
+        $this->assertEquals(
+            0.75 * 1024.0 * 1024.0,
+            $this->script->getMemoryConsumptionInBytes(),
+            'Invalid memory consumption returned.',
+            1
+        );
+    }
+
     public function testGetHitsReturnsCorrectValue()
     {
         $this->assertEquals(42, $this->script->getHits());
