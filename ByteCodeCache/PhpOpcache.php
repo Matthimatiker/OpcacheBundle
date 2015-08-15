@@ -46,11 +46,13 @@ class PhpOpcache implements ByteCodeCacheInterface
      */
     public function memory()
     {
-        $usageInBytes = $this->data['memory_usage']['used_memory'] +  $this->data['memory_usage']['wasted_memory'];
-        $sizeInBytes  = $usageInBytes + $this->data['memory_usage']['free_memory'];
+        $usedInBytes   = $this->data['memory_usage']['used_memory'];
+        $wastedInBytes = $this->data['memory_usage']['wasted_memory'];
+        $sizeInBytes   = $usedInBytes + $wastedInBytes + $this->data['memory_usage']['free_memory'];
         return new Memory(
-            $this->bytesToMb($usageInBytes),
-            $this->bytesToMb($sizeInBytes)
+            $this->bytesToMb($usedInBytes),
+            $this->bytesToMb($sizeInBytes),
+            $this->bytesToMb($wastedInBytes)
         );
     }
 
