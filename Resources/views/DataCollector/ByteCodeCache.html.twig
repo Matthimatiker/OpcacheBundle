@@ -244,6 +244,7 @@
                     <th scope="col">Path</th>
                     <th scope="col">Hits</th>
                     <th scope="col">Memory consumption in bytes</th>
+                    <th scope="col">File size in bytes</th>
                     <th scope="col">Last access</th>
                 </tr>
             </thead>
@@ -256,6 +257,13 @@
                         </td>
                         <td>{{ script.hits }}</td>
                         <td>{{ script.memoryConsumptionInBytes }}</td>
+                        <td>
+                            {% if script.file.isFile %}
+                                {{ script.file.size }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
                         <td>{{ script.lastAccess | date('Y-m-d H:i:s') }}</td>
                     </tr>
                 {% endfor %}
