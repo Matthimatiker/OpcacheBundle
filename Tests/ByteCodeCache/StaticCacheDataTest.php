@@ -2,7 +2,7 @@
 
 namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 
-use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\Memory;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\StaticCacheData;
@@ -18,7 +18,7 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
     protected $cacheData = null;
 
     /**
-     * @var MemoryUsage
+     * @var Memory
      */
     protected $memory = null;
 
@@ -38,7 +38,7 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->memory     = new MemoryUsage(1.0, 5.0);
+        $this->memory     = new Memory(1.0, 5.0);
         $this->statistics = new Statistics(20, 0);
         $this->scripts    = new ScriptCollection(array($this->createScript()));
         $this->cacheData  = new StaticCacheData(true, $this->memory, $this->statistics, $this->scripts);

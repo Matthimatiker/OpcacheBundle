@@ -5,7 +5,7 @@ namespace Matthimatiker\OpcacheBundle\ByteCodeCache;
 /**
  * Holds information about the memory usage of the cache.
  */
-class MemoryUsage
+class Memory
 {
     /**
      * Current memory usage in MB.

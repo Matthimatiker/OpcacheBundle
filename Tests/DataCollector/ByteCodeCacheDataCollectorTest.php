@@ -3,7 +3,7 @@
 namespace Matthimatiker\OpcacheBundle\Tests\DataCollector;
 
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
-use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\Memory;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\StaticCacheData;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Statistics;
 use Matthimatiker\OpcacheBundle\DataCollector\ByteCodeCacheDataCollector;
@@ -27,7 +27,7 @@ class ByteCodeCacheDataCollectorTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $cache = new StaticCacheData(
             true,
-            new MemoryUsage(25.0, 100.0),
+            new Memory(25.0, 100.0),
             new Statistics(100, 5)
         );
         $this->dataCollector = new ByteCodeCacheDataCollector($cache);

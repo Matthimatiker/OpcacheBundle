@@ -42,13 +42,13 @@ class PhpOpcache implements ByteCodeCacheInterface
     /**
      * Provides information about the memory usage.
      *
-     * @return MemoryUsage
+     * @return Memory
      */
     public function memory()
     {
         $usageInBytes = $this->data['memory_usage']['used_memory'] +  $this->data['memory_usage']['wasted_memory'];
         $sizeInBytes  = $usageInBytes + $this->data['memory_usage']['free_memory'];
-        return new MemoryUsage(
+        return new Memory(
             $this->bytesToMb($usageInBytes),
             $this->bytesToMb($sizeInBytes)
         );

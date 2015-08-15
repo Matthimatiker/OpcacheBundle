@@ -3,7 +3,7 @@
 namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
-use Matthimatiker\OpcacheBundle\ByteCodeCache\MemoryUsage;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\Memory;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\PhpOpcache;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
@@ -54,7 +54,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     {
         $memory = $this->opcache->memory();
 
-        $this->assertInstanceOf(MemoryUsage::class, $memory);
+        $this->assertInstanceOf(Memory::class, $memory);
         $this->assertEquals(
             // Used + wasted memory.
             (29836904 + 6619288) / 1024 / 1024,
@@ -68,7 +68,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     {
         $memory = $this->opcache->memory();
 
-        $this->assertInstanceOf(MemoryUsage::class, $memory);
+        $this->assertInstanceOf(Memory::class, $memory);
         $this->assertEquals(64.0, $memory->getSizeInMb(), 'Invalid memory size reported.', 0.001);
     }
 
@@ -76,7 +76,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     {
         $memory = $this->opcache->memory();
 
-        $this->assertInstanceOf(MemoryUsage::class, $memory);
+        $this->assertInstanceOf(Memory::class, $memory);
         $this->assertEquals(
             // Used + wasted memory divided by all available memory.
             ((29836904 + 6619288) / (29836904 + 6619288 + 30652672)) * 100.0,
@@ -124,7 +124,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     {
         $this->opcache = new PhpOpcache();
 
-        $this->assertInstanceOf(MemoryUsage::class, $this->opcache->memory());
+        $this->assertInstanceOf(Memory::class, $this->opcache->memory());
         $this->assertInstanceOf(Statistics::class, $this->opcache->statistics());
     }
 
@@ -133,7 +133,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->opcache = new PhpOpcache(false);
 
         $this->assertFalse($this->opcache->isEnabled());
-        $this->assertInstanceOf(MemoryUsage::class, $this->opcache->memory());
+        $this->assertInstanceOf(Memory::class, $this->opcache->memory());
         $this->assertInstanceOf(Statistics::class, $this->opcache->statistics());
     }
 

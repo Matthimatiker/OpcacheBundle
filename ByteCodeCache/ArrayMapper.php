@@ -35,7 +35,7 @@ class ArrayMapper
     {
         return new StaticCacheData(
             $data['enabled'],
-            new MemoryUsage($data['memory']['usedInMb'], $data['memory']['sizeInMb']),
+            new Memory($data['memory']['usedInMb'], $data['memory']['sizeInMb']),
             new Statistics($data['statistics']['hits'], $data['statistics']['misses']),
             $this->scriptsFromArray($data['cachedScripts'])
         );

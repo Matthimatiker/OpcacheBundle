@@ -17,7 +17,7 @@ interface ByteCodeCacheInterface
     /**
      * Provides information about the memory usage.
      *
-     * @return MemoryUsage
+     * @return Memory
      */
     public function memory();
 

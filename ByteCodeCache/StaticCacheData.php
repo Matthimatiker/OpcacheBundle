@@ -13,7 +13,7 @@ class StaticCacheData implements ByteCodeCacheInterface
     protected $enabled = null;
 
     /**
-     * @var MemoryUsage
+     * @var Memory
      */
     protected $memory = null;
 
@@ -29,11 +29,11 @@ class StaticCacheData implements ByteCodeCacheInterface
 
     /**
      * @param boolean $enabled
-     * @param MemoryUsage $memory
+     * @param Memory $memory
      * @param Statistics $statistics
      * @param ScriptCollection|Script[] $scripts
      */
-    public function __construct($enabled, MemoryUsage $memory, Statistics $statistics, $scripts = array())
+    public function __construct($enabled, Memory $memory, Statistics $statistics, $scripts = array())
     {
         $this->enabled    = $enabled;
         $this->memory     = $memory;
@@ -54,7 +54,7 @@ class StaticCacheData implements ByteCodeCacheInterface
     /**
      * Provides information about the memory usage.
      *
-     * @return MemoryUsage
+     * @return Memory
      */
     public function memory()
     {
