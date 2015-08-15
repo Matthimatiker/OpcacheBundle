@@ -242,7 +242,13 @@
                 {% for script in collector.byteCodeCache.scripts %}
                     {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
                     <tr>
-                        <td>{{ script.file.basename }}</td>
+                        <td>
+                            {% if script.file.basename|length > 30 %}
+                                {{ '%27.27s' | format(script.file.basename) }}...
+                            {% else %}
+                                {{ script.file.basename }}
+                            {% endif %}
+                        </td>
                         <td>{{ script.hits }}</td>
                         <td>{{ script.memoryConsumptionInMb }}</td>
                         <td>{{ script.lastAccess | date('Y-m-d H:i:s') }}</td>
