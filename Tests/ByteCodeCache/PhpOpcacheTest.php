@@ -84,20 +84,6 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(64.0, $memory->getSizeInMb(), 'Invalid memory size reported.', 0.001);
     }
 
-    public function testProvidesCorrectMemoryUsageInPercent()
-    {
-        $memory = $this->opcache->memory();
-
-        $this->assertInstanceOf(Memory::class, $memory);
-        $this->assertEquals(
-            // Used + wasted memory divided by all available memory.
-            ((29836904 + 6619288) / (29836904 + 6619288 + 30652672)) * 100.0,
-            $memory->getUsedInPercent(),
-            'Invalid memory size reported.',
-            0.001
-        );
-    }
-
     public function testProvidesCorrectNumberOfHits()
     {
         $statistics = $this->opcache->statistics();
