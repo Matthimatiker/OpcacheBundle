@@ -245,7 +245,7 @@
                         <td>{{ script.file.basename }}</td>
                         <td>{{ script.hits }}</td>
                         <td>{{ script.memoryConsumptionInMb }}</td>
-                        <td>{{ script.lastAccess | date('Y-m-d') }}</td>
+                        <td>{{ script.lastAccess | date('Y-m-d H:i:s') }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
