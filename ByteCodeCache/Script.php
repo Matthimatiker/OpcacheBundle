@@ -76,7 +76,7 @@ class Script
      */
     public function getMemoryConsumptionInBytes()
     {
-
+        return (int)($this->getMemoryConsumptionInMb() * 1024 * 1024);
     }
 
     /**
