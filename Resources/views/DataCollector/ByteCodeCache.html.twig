@@ -147,6 +147,11 @@
                     <td>{{ cache.number(collector.byteCodeCache.memory.usedInPercent) }}</td>
                 </tr>
                 <tr>
+                    <th>Wasted</th>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.wastedInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.wastedInPercent) }}</td>
+                </tr>
+                <tr>
                     <th>Free</th>
                     <td>{{ cache.number(collector.byteCodeCache.memory.freeInMb) }}</td>
                     <td>{{ cache.number(collector.byteCodeCache.memory.freeInPercent) }}</td>
