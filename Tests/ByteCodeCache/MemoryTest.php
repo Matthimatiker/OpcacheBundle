@@ -65,7 +65,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             (50.0 / 225.0) * 100.0,
-            $this->memory->getUsedInPercent(),
+            $this->memory->getWastedInPercent(),
             'Percentage calculation invalid.',
             0.001
         );
@@ -75,7 +75,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             (25.0 / 225.0) * 100.0,
-            $this->memory->getUsedInPercent(),
+            $this->memory->getFreeInPercent(),
             'Percentage calculation invalid.',
             0.001
         );
