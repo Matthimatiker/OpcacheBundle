@@ -15,6 +15,13 @@ class Memory
     protected $usedInMb = null;
 
     /**
+     * Wasted memory in MB.
+     *
+     * @var double
+     */
+    protected $wastedInMb = null;
+
+    /**
      * Maximal cache size in MB.
      *
      * @var double
@@ -28,8 +35,9 @@ class Memory
      */
     public function __construct($usageInMb, $sizeInMb, $wastedInMb = 0.0)
     {
-        $this->usedInMb = $usageInMb;
-        $this->sizeInMb  = $sizeInMb;
+        $this->usedInMb   = $usageInMb;
+        $this->sizeInMb   = $sizeInMb;
+        $this->wastedInMb = $wastedInMb;
     }
 
     /**
@@ -49,7 +57,7 @@ class Memory
      */
     public function getWastedInMb()
     {
-
+        return $this->wastedInMb;
     }
 
     /**
@@ -59,7 +67,7 @@ class Memory
      */
     public function getFreeInMb()
     {
-        return $this->getSizeInMb() - $this->getUsedInMb();
+        return $this->getSizeInMb() - ($this->getUsedInMb() + $this->getWastedInMb());
     }
 
     /**
@@ -79,10 +87,7 @@ class Memory
      */
     public function getUsedInPercent()
     {
-        if ($this->sizeInMb == 0.0) {
-            return 0.0;
-        }
-        return ($this->usedInMb / $this->sizeInMb) * 100.0;
+        return $this->getPercentageOfMemory($this->getUsedInMb());
     }
 
     /**
@@ -92,7 +97,7 @@ class Memory
      */
     public function getWastedInPercent()
     {
-
+        return $this->getPercentageOfMemory($this->getWastedInMb());
     }
 
     /**
@@ -102,7 +107,7 @@ class Memory
      */
     public function getFreeInPercent()
     {
-
+        return $this->getPercentageOfMemory($this->getFreeInMb());
     }
 
     /**
@@ -115,6 +120,20 @@ class Memory
      */
     public function isFull()
     {
-        return $this->usedInMb >= $this->sizeInMb;
+        return $this->getFreeInMb() <= 0.0;
+    }
+
+    /**
+     * Calculates $value as percentage of the memory size.
+     *
+     * @param double $valueInMb
+     * @return double
+     */
+    protected function getPercentageOfMemory($valueInMb)
+    {
+        if ($this->getSizeInMb() == 0.0) {
+            return 0.0;
+        }
+        return ($valueInMb / $this->getSizeInMb()) * 100.0;
     }
 }
