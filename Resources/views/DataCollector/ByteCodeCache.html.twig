@@ -32,7 +32,7 @@
             </svg>
         </span>
         <span class="sf-toolbar-status sf-toolbar-status-{{ memory_status_color }}">
-            {{ cache.number(collector.byteCodeCache.memory.usedInMb, 0) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb, 0) }} MB
+            {{ cache.number(collector.byteCodeCache.memory.usedInMb + collector.byteCodeCache.memory.wastedInMb, 0) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb, 0) }} MB
         </span>
     {% endset %}
 
@@ -41,11 +41,11 @@
         <div class="sf-toolbar-info-piece">
             <b>Opcache</b>
         </div>
-        {% set memory_status_color = (collector.byteCodeCache.memory.full) ? 'red' : ((collector.byteCodeCache.memory.usedInPercent) >= 80 ? 'yellow' : 'green') %}
+        {% set memory_status_color = (collector.byteCodeCache.memory.full) ? 'red' : ((collector.byteCodeCache.memory.usedInPercent + collector.byteCodeCache.memory.wastedInPercent) >= 80 ? 'yellow' : 'green') %}
         <div class="sf-toolbar-info-piece">
             <b>Memory usage</b>
             <span class="sf-toolbar-status sf-toolbar-status-{{ memory_status_color }}">
-                {{ cache.number(collector.byteCodeCache.memory.usedInMb) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb) }} MB
+                {{ cache.number(collector.byteCodeCache.memory.usedInMb + collector.byteCodeCache.memory.wastedInMb) }} / {{ cache.number(collector.byteCodeCache.memory.sizeInMb) }} MB
             </span>
         </div>
         {% set hit_ratio_status_color = (collector.byteCodeCache.statistics.hitRateInPercent >= 90.0) ? 'green' : ((collector.byteCodeCache.statistics.hitRateInPercent) >= 70.0 ? 'yellow' : 'red') %}
