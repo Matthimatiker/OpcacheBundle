@@ -109,10 +109,12 @@
                     data: {
                         columns: [
                             ['Used', {{ collector.byteCodeCache.memory.usedInMb }}],
+                            ['Wasted', {{ collector.byteCodeCache.memory.wastedInMb }}],
                             ['Free', {{ collector.byteCodeCache.memory.freeInMb }}]
                         ],
                         colors: {
                             'Used': '{{ cache.color_yellow() }}',
+                            'Wasted': '{{ cache.color_red() }}',
                             'Free': '{{ cache.color_green() }}'
                         },
                         type: 'donut'
