@@ -243,7 +243,7 @@
                 <tr>
                     <th scope="col">Path</th>
                     <th scope="col">Hits</th>
-                    <th scope="col">Memory consumption in MB</th>
+                    <th scope="col">Memory consumption in bytes</th>
                     <th scope="col">Last access</th>
                 </tr>
             </thead>
@@ -255,7 +255,7 @@
                             <span title="{{ script.file.pathname }}">{{ cache.truncate(script.file.basename, 30) }}</span>
                         </td>
                         <td>{{ script.hits }}</td>
-                        <td>{{ script.memoryConsumptionInMb }}</td>
+                        <td>{{ script.memoryConsumptionInBytes }}</td>
                         <td>{{ script.lastAccess | date('Y-m-d H:i:s') }}</td>
                     </tr>
                 {% endfor %}
