@@ -43,6 +43,16 @@ class MemoryUsage
     }
 
     /**
+     * Returns the wasted memory in MB.
+     *
+     * @return double
+     */
+    public function getWastedInMb()
+    {
+
+    }
+
+    /**
      * Returns the free memory in MB.
      *
      * @return double
@@ -63,9 +73,7 @@ class MemoryUsage
     }
 
     /**
-     * Returns the cache usage in percent.
-     *
-     * 100% usage means that the cache is full.
+     * Returns the used memory in percent.
      *
      * @return double
      */
@@ -78,7 +86,30 @@ class MemoryUsage
     }
 
     /**
+     * Returns the wasted memory in percent.
+     *
+     * @return double
+     */
+    public function getWastedInPercent()
+    {
+
+    }
+
+    /**
+     * Returns the free memory in percent.
+     *
+     * @return double
+     */
+    public function getFreeInPercent()
+    {
+
+    }
+
+    /**
      * Checks if the cache is full.
+     *
+     * The cache is considered full if the used and wasted memory reach
+     * the cache size.
      *
      * @return boolean
      */
