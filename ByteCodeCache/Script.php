@@ -70,6 +70,16 @@ class Script
     }
 
     /**
+     * Returns the memory consumption of this script in bytes.
+     *
+     * @return integer
+     */
+    public function getMemoryConsumptionInBytes()
+    {
+
+    }
+
+    /**
      * The number of cache hits for this script.
      *
      * @return integer
