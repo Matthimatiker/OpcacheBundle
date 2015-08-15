@@ -7,6 +7,16 @@
     {{- template | format(value) -}}
 {% endmacro %}
 
+
+{% macro truncate(value, max_length) %}
+    {%- if value|length > max_length -%}
+        {%- set template = '%' ~ (max_length - 3) ~ '.' ~ (max_length - 3) ~ 's' -%}
+        {{- template | format(value) -}}...
+    {%- else -%}
+        {{- value -}}
+    {%- endif -%}
+{% endmacro %}
+
 {% macro color_green() %}
     {{- '#759e1a' -}}
 {% endmacro %}
@@ -243,11 +253,7 @@
                     {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
                     <tr>
                         <td>
-                            {% if script.file.basename|length > 30 %}
-                                {{ '%27.27s' | format(script.file.basename) }}...
-                            {% else %}
-                                {{ script.file.basename }}
-                            {% endif %}
+                            {{ cache.truncate(script.file.basename, 30) }}
                         </td>
                         <td>{{ script.hits }}</td>
                         <td>{{ script.memoryConsumptionInMb }}</td>
