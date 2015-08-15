@@ -226,4 +226,29 @@
             </tbody>
         </table>
     </div>
+
+    <div>
+        <h3>Cached scripts</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Path</th>
+                    <th scope="col">Hits</th>
+                    <th scope="col">Memory consumption in MB</th>
+                    <th scope="col">Last access</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for script in collector.byteCodeCache.scripts %}
+                    {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
+                    <tr>
+                        <td>{{ script.file.basename }}</td>
+                        <td>{{ script.hits }}</td>
+                        <td>{{ script.memoryConsumptionInMb }}</td>
+                        <td>{{ script.lastAccess | date('Y-m-d') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
