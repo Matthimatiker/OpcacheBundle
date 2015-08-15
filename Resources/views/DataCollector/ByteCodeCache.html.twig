@@ -137,20 +137,24 @@
                 <tr>
                     <th scope="col">Memory</th>
                     <th scope="col">MB</th>
+                    <th scope="col">Percent</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th>Used</th>
                     <td>{{ cache.number(collector.byteCodeCache.memory.usedInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.usedInPercent) }}</td>
                 </tr>
                 <tr>
                     <th>Free</th>
                     <td>{{ cache.number(collector.byteCodeCache.memory.freeInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.freeInPercent) }}</td>
                 </tr>
                 <tr class="sum">
                     <th>Size</th>
                     <td>{{ cache.number(collector.byteCodeCache.memory.sizeInMb) }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.memory.usedInPercent + collector.byteCodeCache.memory.wastedInPercent + collector.byteCodeCache.memory.freeInPercent) }}</td>
                 </tr>
             </tbody>
         </table>
