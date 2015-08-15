@@ -7,7 +7,6 @@
     {{- template | format(value) -}}
 {% endmacro %}
 
-
 {% macro truncate(value, max_length) %}
     {%- if value|length > max_length -%}
         {%- set template = '%' ~ (max_length - 3) ~ '.' ~ (max_length - 3) ~ 's' -%}
@@ -252,9 +251,7 @@
                 {% for script in collector.byteCodeCache.scripts %}
                     {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
                     <tr>
-                        <td>
-                            {{ cache.truncate(script.file.basename, 30) }}
-                        </td>
+                        <td>{{ cache.truncate(script.file.basename, 30) }}</td>
                         <td>{{ script.hits }}</td>
                         <td>{{ script.memoryConsumptionInMb }}</td>
                         <td>{{ script.lastAccess | date('Y-m-d H:i:s') }}</td>
