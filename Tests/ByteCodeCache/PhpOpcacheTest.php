@@ -50,15 +50,27 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ByteCodeCacheInterface::class, $this->opcache);
     }
 
-    public function testProvidesCorrectMemoryUsage()
+    public function testProvidesCorrectUsedMemory()
     {
         $memory = $this->opcache->memory();
 
         $this->assertInstanceOf(Memory::class, $memory);
         $this->assertEquals(
-            // Used + wasted memory.
-            (29836904 + 6619288) / 1024 / 1024,
+            29836904 / 1024 / 1024,
             $memory->getUsedInMb(),
+            'Invalid memory usage reported.',
+            0.001
+        );
+    }
+
+    public function testProvidesCorrectWastedMemory()
+    {
+        $memory = $this->opcache->memory();
+
+        $this->assertInstanceOf(Memory::class, $memory);
+        $this->assertEquals(
+            6619288 / 1024 / 1024,
+            $memory->getWastedInMb(),
             'Invalid memory usage reported.',
             0.001
         );
