@@ -11,5 +11,7 @@
 
 ## Usage ##
 
+![Profiler page example](Resources/docs/profiler-opcache-example.png)
+
 ## Known Issues ##
 
