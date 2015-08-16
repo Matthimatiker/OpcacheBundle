@@ -110,6 +110,7 @@
     <h2>Opcache</h2>
     <div>
         <h3>Memory usage</h3>
+
         <div id="byteCodeCacheMemoryUsage"></div>
         <script type="application/javascript">
             (function () {
@@ -175,8 +176,79 @@
             </tbody>
         </table>
     </div>
+
+    <div>
+        <h3>Script slots</h3>
+
+        <div id="byteCodeCacheScriptSlots"></div>
+        <script type="application/javascript">
+            (function () {
+                c3.generate({
+                    bindto: "#byteCodeCacheScriptSlots",
+                    data: {
+                        columns: [
+                            ['Used', {{ collector.byteCodeCache.scripts.slots.used }}],
+                            ['Wasted', {{ collector.byteCodeCache.scripts.slots.wasted }}],
+                            ['Free', {{ collector.byteCodeCache.scripts.slots.free }}]
+                        ],
+                        colors: {
+                            'Used': '{{ cache.color_yellow() }}',
+                            'Wasted': '{{ cache.color_red() }}',
+                            'Free': '{{ cache.color_green() }}'
+                        },
+                        type: 'donut'
+                    },
+                    donut: {
+                        title: "{{ collector.byteCodeCache.scripts.slots.free }} slots free",
+                        expand: false
+                    },
+                    tooltip: {
+                        format: {
+                            value: function (value) {
+                                return value;
+                            }
+                        }
+                    }
+                });
+            })();
+        </script>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Slots</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Percent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Used</th>
+                    <td>{{ collector.byteCodeCache.scripts.slots.used }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.usedInPercent) }}</td>
+                </tr>
+                <tr>
+                    <th>Wasted</th>
+                    <td>{{ collector.byteCodeCache.scripts.slots.wasted }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.wastedInPercent) }}</td>
+                </tr>
+                <tr>
+                    <th>Free</th>
+                    <td>{{ collector.byteCodeCache.scripts.slots.free }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.freeInPercent) }}</td>
+                </tr>
+                <tr class="sum">
+                    <th>All</th>
+                    <td>{{ collector.byteCodeCache.scripts.slots.max }}</td>
+                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.usedInPercent + collector.byteCodeCache.scripts.slots.wastedInPercent + collector.byteCodeCache.scripts.slots.freeInPercent) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div>
         <h3>Hit ratio</h3>
+
         <div id="byteCodeCacheHitRatio"></div>
         <script type="application/javascript">
             (function () {
@@ -238,6 +310,7 @@
 
     <div>
         <h3>Cached scripts</h3>
+
         <table>
             <thead>
                 <tr>
