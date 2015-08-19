@@ -368,7 +368,7 @@
                 {% for script in collector.byteCodeCache.scripts %}
                     {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
                     <tr>
-                        <td>
+                        <td data-sort="{{ script.file.pathname }}">
                             <span title="{{ script.file.pathname }}">{{ cache.truncate(script.file.basename, 30) }}</span>
                         </td>
                         <td>{{ script.hits }}</td>
