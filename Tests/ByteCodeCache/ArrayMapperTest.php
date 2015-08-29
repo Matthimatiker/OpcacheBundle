@@ -86,6 +86,14 @@ class ArrayMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($originalByteCodeCache->scripts(), $byteCodeCache->scripts());
     }
 
+    public function testConfigurationCanBeRestoredFromArray()
+    {
+        $originalByteCodeCache = $this->createByteCodeCache();
+        $byteCodeCache = $this->transformAndRestore($originalByteCodeCache);
+
+        $this->assertEquals($originalByteCodeCache->getConfiguration(), $byteCodeCache->getConfiguration());
+    }
+
     /**
      * Transforms the given byte code cache into an array and
      * recreates the cache from that array.
@@ -118,7 +126,8 @@ class ArrayMapperTest extends \PHPUnit_Framework_TestCase
                     new Script('/any/file.php', 0.35, 42, '2015-06-01 12:00:00')
                 ),
                 new ScriptSlots(5, 10, 3)
-            )
+            ),
+            array('config' => 'value')
         );
     }
 }
