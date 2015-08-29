@@ -15,6 +15,13 @@ class PhpOpcache implements ByteCodeCacheInterface
     protected $data = null;
 
     /**
+     * The raw cache configuration.
+     *
+     * @var array<mixed>
+     */
+    protected $configuration = null;
+
+    /**
      * Extracts opcache information from the given data.
      *
      * The provided data should be the result of an opcache_get_status() call.
