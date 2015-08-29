@@ -23,7 +23,8 @@ class ArrayMapper
                 'hits'   => $cache->statistics()->getHits(),
                 'misses' => $cache->statistics()->getMisses()
             ),
-            'cachedScripts' => $this->scriptsToArray($cache->scripts())
+            'cachedScripts' => $this->scriptsToArray($cache->scripts()),
+            'configuration' => $cache->getConfiguration()
         );
     }
 
@@ -37,7 +38,8 @@ class ArrayMapper
             $data['enabled'],
             new Memory($data['memory']['usedInMb'], $data['memory']['sizeInMb']),
             new Statistics($data['statistics']['hits'], $data['statistics']['misses']),
-            $this->scriptsFromArray($data['cachedScripts'])
+            $this->scriptsFromArray($data['cachedScripts']),
+            $data['configuration']
         );
     }
 
