@@ -34,4 +34,11 @@ interface ByteCodeCacheInterface
      * @return ScriptCollection
      */
     public function scripts();
+
+    /**
+     * Returns the raw cache configuration.
+     *
+     * @return array<mixed>
+     */
+    public function getConfiguration();
 }

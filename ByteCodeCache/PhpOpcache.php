@@ -154,4 +154,14 @@ class PhpOpcache implements ByteCodeCacheInterface
             'scripts' => array()
         );
     }
+
+    /**
+     * Returns the raw cache configuration.
+     *
+     * @return array<mixed>
+     */
+    public function getConfiguration()
+    {
+
+    }
 }
