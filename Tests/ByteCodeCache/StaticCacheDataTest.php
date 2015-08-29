@@ -41,7 +41,8 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
         $this->memory     = new Memory(1.0, 5.0);
         $this->statistics = new Statistics(20, 0);
         $this->scripts    = new ScriptCollection(array($this->createScript()));
-        $this->cacheData  = new StaticCacheData(true, $this->memory, $this->statistics, $this->scripts);
+        $config           = array('config' => 'value');
+        $this->cacheData  = new StaticCacheData(true, $this->memory, $this->statistics, $this->scripts, $config);
     }
 
     /**
@@ -84,6 +85,13 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(ScriptCollection::class, $scripts);
         $this->assertCount(1, $scripts);
+    }
+
+    public function testGetConfigurationReturnsCorrectValue()
+    {
+        $expected = array('config' => 'value');
+
+        $this->assertEquals($expected, $this->cacheData->getConfiguration());
     }
 
     /**
