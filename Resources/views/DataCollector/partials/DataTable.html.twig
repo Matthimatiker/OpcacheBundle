@@ -1,17 +1,23 @@
 {# @var data array<mixed> #}
 <table>
     <thead>
-    <tr>
-        <th scope="col" style="width: 25%">Key</th>
-        <th scope="col" style="width: 75%">Value</th>
-    </tr>
+        <tr>
+            <th scope="col" style="width: 25%">Key</th>
+            <th scope="col" style="width: 75%">Value</th>
+        </tr>
     </thead>
     <tbody>
-    {% for key, value in data %}
-        <tr>
-            <th>{{ key }}</th>
-            <td><pre>{{ profiler_dump(value) }}</pre></td>
-        </tr>
-    {% endfor %}
+        {% for key, value in data %}
+            <tr>
+                <th>{{ key }}</th>
+                <td>
+                    {% if value is iterable %}
+                        {% include 'MatthimatikerOpcacheBundle:DataCollector/partials:DataTable.html.twig' with {'data': value} only %}
+                    {% else %}
+                        <pre>{{ profiler_dump(value) }}</pre>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
