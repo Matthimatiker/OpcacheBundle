@@ -1,18 +1,25 @@
 {# @var data array<mixed> #}
+{# @var withHeader boolean|null #}
 <table class="data-table">
-    <thead>
-        <tr>
-            <th scope="col" style="width: 25%">Key</th>
-            <th scope="col" style="width: 75%">Value</th>
-        </tr>
-    </thead>
+    <colgroup>
+        <col span="1" style="width: 25%;">
+        <col span="1" style="width: 75%;">
+    </colgroup>
+    {% if withHeader is not defined or withHeader %}
+        <thead>
+            <tr>
+                <th scope="col">Key</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+    {% endif %}
     <tbody>
         {% for key, value in data %}
             <tr>
                 <th>{{ key }}</th>
                 <td>
                     {% if value is iterable %}
-                        {% include 'MatthimatikerOpcacheBundle:DataCollector/partials:DataTable.html.twig' with {'data': value} only %}
+                        {% include 'MatthimatikerOpcacheBundle:DataCollector/partials:DataTable.html.twig' with {'data': value, 'withHeader': false} only %}
                     {% else %}
                         <pre>{{ profiler_dump(value) }}</pre>
                     {% endif %}
