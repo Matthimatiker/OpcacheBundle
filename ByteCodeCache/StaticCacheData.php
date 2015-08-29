@@ -28,17 +28,29 @@ class StaticCacheData implements ByteCodeCacheInterface
     protected $scripts = null;
 
     /**
+     * @var array<mixed>
+     */
+    protected $configuration = null;
+
+    /**
      * @param boolean $enabled
      * @param Memory $memory
      * @param Statistics $statistics
      * @param ScriptCollection|Script[] $scripts
+     * @param array<mixed> $configuration
      */
-    public function __construct($enabled, Memory $memory, Statistics $statistics, $scripts = array())
-    {
-        $this->enabled    = $enabled;
-        $this->memory     = $memory;
-        $this->statistics = $statistics;
-        $this->scripts    = (is_array($scripts)) ? new ScriptCollection($scripts) : $scripts;
+    public function __construct(
+        $enabled,
+        Memory $memory,
+        Statistics $statistics,
+        $scripts = array(),
+        array $configuration = array()
+    ) {
+        $this->enabled       = $enabled;
+        $this->memory        = $memory;
+        $this->statistics    = $statistics;
+        $this->scripts       = (is_array($scripts)) ? new ScriptCollection($scripts) : $scripts;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -79,5 +91,15 @@ class StaticCacheData implements ByteCodeCacheInterface
     public function scripts()
     {
         return $this->scripts;
+    }
+
+    /**
+     * Returns the raw cache configuration.
+     *
+     * @return array<mixed>
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
     }
 }

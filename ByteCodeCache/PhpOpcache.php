@@ -15,18 +15,30 @@ class PhpOpcache implements ByteCodeCacheInterface
     protected $data = null;
 
     /**
+     * The raw cache configuration.
+     *
+     * @var array<mixed>
+     */
+    protected $configuration = null;
+
+    /**
      * Extracts opcache information from the given data.
      *
      * The provided data should be the result of an opcache_get_status() call.
      *
      * @param array<string, mixed>|null|false $cacheData
+     * @param array<mixed> $configuration
      */
-    public function __construct($cacheData = null)
+    public function __construct($cacheData = null, array $configuration = null)
     {
         if ($cacheData === null) {
             $cacheData = opcache_get_status();
         }
+        if ($configuration === null) {
+            $configuration = opcache_get_configuration();
+        }
         $this->data = $this->normalize($cacheData);
+        $this->configuration = $configuration;
     }
 
     /**
@@ -86,6 +98,16 @@ class PhpOpcache implements ByteCodeCacheInterface
             );
         }, $this->data['scripts']);
         return new ScriptCollection($scripts, $this->calculateCacheSlots());
+    }
+
+    /**
+     * Returns the raw cache configuration.
+     *
+     * @return array<mixed>
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
     }
 
     /**

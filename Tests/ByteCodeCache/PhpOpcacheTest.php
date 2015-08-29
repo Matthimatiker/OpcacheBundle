@@ -26,13 +26,21 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
     protected $data = null;
 
     /**
+     * The configuration data that is passed to the cache instance.
+     *
+     * @var array<mixed>
+     */
+    protected $configuration = null;
+
+    /**
      * Initializes the test environment.
      */
     protected function setUp()
     {
         parent::setUp();
-        $this->data    = require(__DIR__ . '/_files/PhpOpcache/active_cache.php');
-        $this->opcache = new PhpOpcache($this->data);
+        $this->data          = require(__DIR__ . '/_files/PhpOpcache/active_cache.php');
+        $this->configuration = require(__DIR__ . '/_files/PhpOpcache/configuration.php');
+        $this->opcache       = new PhpOpcache($this->data, $this->configuration);
     }
 
     /**
@@ -40,8 +48,9 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->opcache = null;
-        $this->data    = null;
+        $this->opcache       = null;
+        $this->configuration = null;
+        $this->data          = null;
         parent::tearDown();
     }
 
@@ -124,6 +133,7 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Memory::class, $this->opcache->memory());
         $this->assertInstanceOf(Statistics::class, $this->opcache->statistics());
+        $this->assertInternalType('array', $this->opcache->getConfiguration());
     }
 
     public function testAccessLayerWorksIfNoCacheDataIsAvailable()
@@ -179,5 +189,10 @@ class PhpOpcacheTest extends \PHPUnit_Framework_TestCase
             $wasted,
             $scripts->getSlots()->wasted()
         );
+    }
+
+    public function testCacheReturnsConfiguration()
+    {
+        $this->assertEquals($this->configuration, $this->opcache->getConfiguration());
     }
 }
