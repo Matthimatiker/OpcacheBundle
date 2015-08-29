@@ -18,7 +18,7 @@
             <tr>
                 <th>{{ key }}</th>
                 <td>
-                    {% if value is iterable %}
+                    {% if value is iterable and value is not empty %}
                         {% include 'MatthimatikerOpcacheBundle:DataCollector/partials:DataTable.html.twig' with {'data': value, 'withHeader': false} only %}
                     {% else %}
                         <pre>{{ profiler_dump(value) }}</pre>
