@@ -31,14 +31,14 @@ class PhpOpcache implements ByteCodeCacheInterface
      */
     public function __construct($cacheData = null, array $configuration = null)
     {
-        if ($cacheData === null) {
+        if ($cacheData === null && function_exists('opcache_get_status')) {
             $cacheData = opcache_get_status();
         }
-        if ($configuration === null) {
+        if ($configuration === null && function_exists('opcache_get_configuration')) {
             $configuration = opcache_get_configuration();
         }
-        $this->data = $this->normalize($cacheData);
-        $this->configuration = $configuration;
+        $this->data = $this->normalizeStatus($cacheData);
+        $this->configuration = $this->normalizeConfiguration($configuration);
     }
 
     /**
@@ -132,12 +132,26 @@ class PhpOpcache implements ByteCodeCacheInterface
      * @param array<string, mixed>|boolean|mixed $cacheData
      * @return array<string, mixed>
      */
-    protected function normalize($cacheData)
+    protected function normalizeStatus($cacheData)
     {
         if (!is_array($cacheData)) {
-            return $this->createFallbackData();
+            return $this->createFallbackStatusData();
         }
         return $cacheData;
+    }
+
+    /**
+     * Normalizes configuration data.
+     *
+     * @param array<string, mixed>|boolean|mixed $configuration
+     * @return array<string, mixed>
+     */
+    protected function normalizeConfiguration($configuration)
+    {
+        if (!is_array($configuration)) {
+            return array();
+        }
+        return $configuration;
     }
 
     /**
@@ -158,7 +172,7 @@ class PhpOpcache implements ByteCodeCacheInterface
      *
      * @return array<string, mixed>
      */
-    protected function createFallbackData()
+    protected function createFallbackStatusData()
     {
         return array(
             'opcache_enabled' => false,
