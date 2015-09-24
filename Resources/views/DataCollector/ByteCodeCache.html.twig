@@ -72,6 +72,7 @@
 
 {% block head %}
     {{ parent() }}
+    <link href="{{ asset('bundles/matthimatikeropcache/css/scoped-bootstrap.min.css') }}" rel="stylesheet" media="all" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css" rel="stylesheet" type="text/css" media="all" />
     <style type="text/css" media="all">
         text.c3-chart-arcs-title {
@@ -117,253 +118,254 @@
 
 {% block panel %}
     {% import _self as cache %}
+    <div class="bootstrap">
+        {# Shows details about the cache state. #}
+        <h2>Opcache</h2>
+        <div>
+            <h3>Memory usage</h3>
 
-    {# Shows details about the cache state. #}
-    <h2>Opcache</h2>
-    <div>
-        <h3>Memory usage</h3>
-
-        <div id="byteCodeCacheMemoryUsage"></div>
-        <script type="application/javascript">
-            (function () {
-                c3.generate({
-                    bindto: "#byteCodeCacheMemoryUsage",
-                    data: {
-                        columns: [
-                            ['Used', {{ collector.byteCodeCache.memory.usedInMb }}],
-                            ['Wasted', {{ collector.byteCodeCache.memory.wastedInMb }}],
-                            ['Free', {{ collector.byteCodeCache.memory.freeInMb }}]
-                        ],
-                        colors: {
-                            'Used': '{{ cache.color_yellow() }}',
-                            'Wasted': '{{ cache.color_red() }}',
-                            'Free': '{{ cache.color_green() }}'
+            <div id="byteCodeCacheMemoryUsage"></div>
+            <script type="application/javascript">
+                (function () {
+                    c3.generate({
+                        bindto: "#byteCodeCacheMemoryUsage",
+                        data: {
+                            columns: [
+                                ['Used', {{ collector.byteCodeCache.memory.usedInMb }}],
+                                ['Wasted', {{ collector.byteCodeCache.memory.wastedInMb }}],
+                                ['Free', {{ collector.byteCodeCache.memory.freeInMb }}]
+                            ],
+                            colors: {
+                                'Used': '{{ cache.color_yellow() }}',
+                                'Wasted': '{{ cache.color_red() }}',
+                                'Free': '{{ cache.color_green() }}'
+                            },
+                            type: 'donut'
                         },
-                        type: 'donut'
-                    },
-                    donut: {
-                        title: "{{ cache.number(collector.byteCodeCache.memory.freeInMb) }} MB free",
-                        expand: false
-                    },
-                    tooltip: {
-                        format: {
-                            value: function (value) {
-                                return value.toFixed(2) + ' MB';
+                        donut: {
+                            title: "{{ cache.number(collector.byteCodeCache.memory.freeInMb) }} MB free",
+                            expand: false
+                        },
+                        tooltip: {
+                            format: {
+                                value: function (value) {
+                                    return value.toFixed(2) + ' MB';
+                                }
                             }
                         }
-                    }
-                });
-            })();
-        </script>
+                    });
+                })();
+            </script>
 
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Memory</th>
-                    <th scope="col">MB</th>
-                    <th scope="col">Percent</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Used</th>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.usedInMb) }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.usedInPercent) }}</td>
-                </tr>
-                <tr>
-                    <th>Wasted</th>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.wastedInMb) }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.wastedInPercent) }}</td>
-                </tr>
-                <tr>
-                    <th>Free</th>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.freeInMb) }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.freeInPercent) }}</td>
-                </tr>
-                <tr class="sum">
-                    <th>Size</th>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.sizeInMb) }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.memory.usedInPercent + collector.byteCodeCache.memory.wastedInPercent + collector.byteCodeCache.memory.freeInPercent) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div>
-        <h3>Script slots</h3>
-
-        <div id="byteCodeCacheScriptSlots"></div>
-        <script type="application/javascript">
-            (function () {
-                c3.generate({
-                    bindto: "#byteCodeCacheScriptSlots",
-                    data: {
-                        columns: [
-                            ['Used', {{ collector.byteCodeCache.scripts.slots.used }}],
-                            ['Wasted', {{ collector.byteCodeCache.scripts.slots.wasted }}],
-                            ['Free', {{ collector.byteCodeCache.scripts.slots.free }}]
-                        ],
-                        colors: {
-                            'Used': '{{ cache.color_yellow() }}',
-                            'Wasted': '{{ cache.color_red() }}',
-                            'Free': '{{ cache.color_green() }}'
-                        },
-                        type: 'donut'
-                    },
-                    donut: {
-                        title: "{{ collector.byteCodeCache.scripts.slots.free }} slots free",
-                        expand: false
-                    },
-                    tooltip: {
-                        format: {
-                            value: function (value) {
-                                return value;
-                            }
-                        }
-                    }
-                });
-            })();
-        </script>
-
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Slots</th>
-                    <th scope="col">Number</th>
-                    <th scope="col">Percent</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Used</th>
-                    <td>{{ collector.byteCodeCache.scripts.slots.used }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.usedInPercent) }}</td>
-                </tr>
-                <tr>
-                    <th>Wasted</th>
-                    <td>{{ collector.byteCodeCache.scripts.slots.wasted }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.wastedInPercent) }}</td>
-                </tr>
-                <tr>
-                    <th>Free</th>
-                    <td>{{ collector.byteCodeCache.scripts.slots.free }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.freeInPercent) }}</td>
-                </tr>
-                <tr class="sum">
-                    <th>All</th>
-                    <td>{{ collector.byteCodeCache.scripts.slots.max }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.scripts.slots.usedInPercent + collector.byteCodeCache.scripts.slots.wastedInPercent + collector.byteCodeCache.scripts.slots.freeInPercent) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div>
-        <h3>Hit ratio</h3>
-
-        <div id="byteCodeCacheHitRatio"></div>
-        <script type="application/javascript">
-            (function () {
-                c3.generate({
-                    bindto: "#byteCodeCacheHitRatio",
-                    data: {
-                        columns: [
-                            ['Misses', {{ collector.byteCodeCache.statistics.misses }}],
-                            ['Hits', {{ collector.byteCodeCache.statistics.hits }}]
-                        ],
-                        colors: {
-                            'Misses': '{{ cache.color_red() }}',
-                            'Hits': '{{ cache.color_green() }}'
-                        },
-                        type: 'donut'
-                    },
-                    donut: {
-                        title: "{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent) }}% hit rate",
-                        expand: false
-                    },
-                    tooltip: {
-                        format: {
-                            value: function (value) {
-                                return value;
-                            }
-                        }
-                    }
-                });
-            })();
-        </script>
-
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Metric</th>
-                    <th scope="col">Number</th>
-                    <th scope="col">Percent</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Hits</th>
-                    <td>{{ collector.byteCodeCache.statistics.hits }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent) }}</td>
-                </tr>
-                <tr>
-                    <th>Misses</th>
-                    <td>{{ collector.byteCodeCache.statistics.misses }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.statistics.missRateInPercent) }}</td>
-                </tr>
-                <tr class="sum">
-                    <th>Requests</th>
-                    <td>{{ collector.byteCodeCache.statistics.requests }}</td>
-                    <td>{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent + collector.byteCodeCache.statistics.missRateInPercent) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div>
-        <h3>Configuration</h3>
-
-        {% include 'MatthimatikerOpcacheBundle:DataCollector/partials:DataTable.html.twig' with {'data': collector.byteCodeCache.configuration} only %}
-    </div>
-
-    <div>
-        <h3>Cached scripts</h3>
-
-        <table id="cachedScripts">
-            <thead>
-                <tr>
-                    <th scope="col">Path</th>
-                    <th scope="col" data-sort-method="number">Hits</th>
-                    <th scope="col" data-sort-method="number">Memory consumption in bytes</th>
-                    <th scope="col" data-sort-method="number">File size in bytes</th>
-                    <th scope="col" class="sort-default">Last access</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for script in collector.byteCodeCache.scripts %}
-                    {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
+            <table>
+                <thead>
                     <tr>
-                        <td data-sort="{{ script.file.pathname }}">
-                            <span title="{{ script.file.pathname }}">{{ cache.truncate(script.file.basename, 30) }}</span>
-                        </td>
-                        <td>{{ script.hits }}</td>
-                        <td>{{ script.memoryConsumptionInBytes }}</td>
-                        <td>
-                            {% if script.file.isFile %}
-                                {{ script.file.size }}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-                        <td>{{ script.lastAccess | date('Y-m-d H:i:s') }}</td>
+                        <th scope="col">Memory</th>
+                        <th scope="col">MB</th>
+                        <th scope="col">Percent</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <script type="application/javascript">
-            (function () {
-                new Tablesort(document.getElementById('cachedScripts'));
-            })();
-        </script>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Used</th>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.usedInMb) }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.usedInPercent) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Wasted</th>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.wastedInMb) }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.wastedInPercent) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Free</th>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.freeInMb) }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.freeInPercent) }}</td>
+                    </tr>
+                    <tr class="sum">
+                        <th>Size</th>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.sizeInMb) }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.memory.usedInPercent + collector.byteCodeCache.memory.wastedInPercent + collector.byteCodeCache.memory.freeInPercent) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>Script slots</h3>
+
+            <div id="byteCodeCacheScriptSlots"></div>
+            <script type="application/javascript">
+                (function () {
+                    c3.generate({
+                        bindto: "#byteCodeCacheScriptSlots",
+                        data: {
+                            columns: [
+                                ['Used', {{ collector.byteCodeCache.scripts.slots.used }}],
+                                ['Wasted', {{ collector.byteCodeCache.scripts.slots.wasted }}],
+                                ['Free', {{ collector.byteCodeCache.scripts.slots.free }}]
+                            ],
+                            colors: {
+                                'Used': '{{ cache.color_yellow() }}',
+                                'Wasted': '{{ cache.color_red() }}',
+                                'Free': '{{ cache.color_green() }}'
+                            },
+                            type: 'donut'
+                        },
+                        donut: {
+                            title: "{{ collector.byteCodeCache.scripts.slots.free }} slots free",
+                            expand: false
+                        },
+                        tooltip: {
+                            format: {
+                                value: function (value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    });
+                })();
+            </script>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Slots</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Percent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Used</th>
+                        <td>{{ collector.byteCodeCache.scripts.slots.used }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.scripts.slots.usedInPercent) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Wasted</th>
+                        <td>{{ collector.byteCodeCache.scripts.slots.wasted }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.scripts.slots.wastedInPercent) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Free</th>
+                        <td>{{ collector.byteCodeCache.scripts.slots.free }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.scripts.slots.freeInPercent) }}</td>
+                    </tr>
+                    <tr class="sum">
+                        <th>All</th>
+                        <td>{{ collector.byteCodeCache.scripts.slots.max }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.scripts.slots.usedInPercent + collector.byteCodeCache.scripts.slots.wastedInPercent + collector.byteCodeCache.scripts.slots.freeInPercent) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>Hit ratio</h3>
+
+            <div id="byteCodeCacheHitRatio"></div>
+            <script type="application/javascript">
+                (function () {
+                    c3.generate({
+                        bindto: "#byteCodeCacheHitRatio",
+                        data: {
+                            columns: [
+                                ['Misses', {{ collector.byteCodeCache.statistics.misses }}],
+                                ['Hits', {{ collector.byteCodeCache.statistics.hits }}]
+                            ],
+                            colors: {
+                                'Misses': '{{ cache.color_red() }}',
+                                'Hits': '{{ cache.color_green() }}'
+                            },
+                            type: 'donut'
+                        },
+                        donut: {
+                            title: "{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent) }}% hit rate",
+                            expand: false
+                        },
+                        tooltip: {
+                            format: {
+                                value: function (value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    });
+                })();
+            </script>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Metric</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Percent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Hits</th>
+                        <td>{{ collector.byteCodeCache.statistics.hits }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Misses</th>
+                        <td>{{ collector.byteCodeCache.statistics.misses }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.statistics.missRateInPercent) }}</td>
+                    </tr>
+                    <tr class="sum">
+                        <th>Requests</th>
+                        <td>{{ collector.byteCodeCache.statistics.requests }}</td>
+                        <td>{{ cache.number(collector.byteCodeCache.statistics.hitRateInPercent + collector.byteCodeCache.statistics.missRateInPercent) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>Configuration</h3>
+
+            {% include 'MatthimatikerOpcacheBundle:DataCollector/partials:DataTable.html.twig' with {'data': collector.byteCodeCache.configuration} only %}
+        </div>
+
+        <div>
+            <h3>Cached scripts</h3>
+
+            <table id="cachedScripts">
+                <thead>
+                    <tr>
+                        <th scope="col">Path</th>
+                        <th scope="col" data-sort-method="number">Hits</th>
+                        <th scope="col" data-sort-method="number">Memory consumption in bytes</th>
+                        <th scope="col" data-sort-method="number">File size in bytes</th>
+                        <th scope="col" class="sort-default">Last access</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for script in collector.byteCodeCache.scripts %}
+                        {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
+                        <tr>
+                            <td data-sort="{{ script.file.pathname }}">
+                                <span title="{{ script.file.pathname }}">{{ cache.truncate(script.file.basename, 30) }}</span>
+                            </td>
+                            <td>{{ script.hits }}</td>
+                            <td>{{ script.memoryConsumptionInBytes }}</td>
+                            <td>
+                                {% if script.file.isFile %}
+                                    {{ script.file.size }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>{{ script.lastAccess | date('Y-m-d H:i:s') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <script type="application/javascript">
+                (function () {
+                    new Tablesort(document.getElementById('cachedScripts'));
+                })();
+            </script>
+        </div>
     </div>
 {% endblock %}
