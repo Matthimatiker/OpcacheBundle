@@ -325,21 +325,21 @@
     <div>
         <h3>Cached scripts</h3>
 
-        <table id="cachedScripts">
+        <table id="cachedScripts" data-columns='[{"type": "string"}, {"type": "num"}, {"type": "num"}, {"type": "num"}, {"type": "date"}]' data-order='[[4, "desc"]]' data-page-length='50' data-length-menu='[[10, 25, 50, 100, 500, 1000, -1], [10, 25, 50, 100, 500, 1000, "all"]]' data-processing='true'>
             <thead>
                 <tr>
                     <th scope="col">Path</th>
-                    <th scope="col" data-sort-method="number">Hits</th>
-                    <th scope="col" data-sort-method="number">Memory consumption in bytes</th>
-                    <th scope="col" data-sort-method="number">File size in bytes</th>
-                    <th scope="col" class="sort-default">Last access</th>
+                    <th scope="col">Hits</th>
+                    <th scope="col">Memory consumption in bytes</th>
+                    <th scope="col">File size in bytes</th>
+                    <th scope="col">Last access</th>
                 </tr>
             </thead>
             <tbody>
                 {% for script in collector.byteCodeCache.scripts %}
                     {# @var script \Matthimatiker\OpcacheBundle\ByteCodeCache\Script #}
                     <tr>
-                        <td data-sort="{{ script.file.pathname }}">
+                        <td>
                             <span title="{{ script.file.pathname }}">{{ cache.truncate(script.file.basename, 30) }}</span>
                         </td>
                         <td>{{ script.hits }}</td>
@@ -358,7 +358,8 @@
         </table>
         <script type="application/javascript">
             $(document).ready(function(){
-                $('#cachedScripts').DataTable();
+                // Documentation available at http://datatables.net/
+                $('#cachedScripts').dataTable();
             });
         </script>
     </div>
