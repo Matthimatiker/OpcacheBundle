@@ -12,8 +12,8 @@
     ],
 
     "require": {
-        "php": ">=5.5.5",
-        "symfony/symfony": "^2.3.0"
+        "php": "^5.5.5 | ^7.0.0",
+        "symfony/symfony": "^2.3.0 | ^3.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
@@ -23,6 +23,12 @@
     "autoload": {
         "psr-4": {
             "Matthimatiker\\OpcacheBundle\\": "."
+        }
+    },
+
+    "config": {
+        "platform": {
+            "php": "5.5.5"
         }
     }
 }
