@@ -135,9 +135,9 @@ class PhpOpcache implements ByteCodeCacheInterface
     protected function normalizeStatus($cacheData)
     {
         if (!is_array($cacheData)) {
-            return $this->createFallbackStatusData();
+            $cacheData = array();
         }
-        return $cacheData;
+        return array_replace_recursive($this->getDefaultStatusData(), $cacheData);
     }
 
     /**
@@ -172,7 +172,7 @@ class PhpOpcache implements ByteCodeCacheInterface
      *
      * @return array<string, mixed>
      */
-    protected function createFallbackStatusData()
+    protected function getDefaultStatusData()
     {
         return array(
             'opcache_enabled' => false,
