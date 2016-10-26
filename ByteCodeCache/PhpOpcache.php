@@ -185,6 +185,7 @@ class PhpOpcache implements ByteCodeCacheInterface
                 'hits'   => 0,
                 'misses' => 0,
                 'num_cached_scripts' => 0,
+                'num_cached_keys'    => 0,
                 'max_cached_keys'    => 0
             ),
             'scripts' => array()
