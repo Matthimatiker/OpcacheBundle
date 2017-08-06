@@ -34,3 +34,11 @@ The detail page provides comprehensive information about memory state, cache key
 
 ![Profiler page example](Resources/docs/profiler-opcache-example.png)
 
+
+## Changelog ##
+
+### 0.4.3 -> 0.5.0 ###
+
+- Avoid conflict on installation with [Symfony Flex](http://fabien.potencier.org/symfony4-demo.html)
+- Dropped PHP 5 support
+- Dropped HHVM support
