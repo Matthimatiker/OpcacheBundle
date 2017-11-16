@@ -41,4 +41,11 @@ interface ByteCodeCacheInterface
      * @return array<mixed>
      */
     public function getConfiguration();
+
+    /**
+     * Returns data about interned strings.
+     *
+     * @return InternedStrings
+     */
+    public function internedStrings(): InternedStrings;
 }

@@ -2,6 +2,7 @@
 
 namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 
+use Matthimatiker\OpcacheBundle\ByteCodeCache\InternedStrings;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Memory;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
@@ -31,6 +32,10 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
      * @var ScriptCollection
      */
     protected $scripts = null;
+    /**
+     * @var InternedStrings
+     */
+    protected $internedString;
 
     /**
      * Initializes the test environment.
@@ -40,9 +45,22 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->memory     = new Memory(1.0, 5.0);
         $this->statistics = new Statistics(20, 0);
+        $this->internedString = new InternedStrings(
+            2.0,
+            8.0,
+            6.0,
+            1100
+        );
         $this->scripts    = new ScriptCollection(array($this->createScript()));
         $config           = array('config' => 'value');
-        $this->cacheData  = new StaticCacheData(true, $this->memory, $this->statistics, $this->scripts, $config);
+        $this->cacheData  = new StaticCacheData(
+            true,
+            $this->memory,
+            $this->statistics,
+            $this->internedString,
+            $this->scripts,
+            $config
+        );
     }
 
     /**
@@ -77,9 +95,20 @@ class StaticCacheDataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->scripts, $this->cacheData->scripts());
     }
 
+    public function testInternedStringsReturnsCorrectData()
+    {
+        $this->assertEquals($this->internedString, $this->cacheData->internedStrings());
+    }
+
     public function testScriptsCanBeProvidedAsArray()
     {
-        $this->cacheData = new StaticCacheData(true, $this->memory, $this->statistics, array($this->createScript()));
+        $this->cacheData = new StaticCacheData(
+            true,
+            $this->memory,
+            $this->statistics,
+            $this->internedString,
+            array($this->createScript())
+        );
 
         $scripts = $this->cacheData->scripts();
 

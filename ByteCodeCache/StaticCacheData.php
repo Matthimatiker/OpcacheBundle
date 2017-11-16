@@ -31,6 +31,10 @@ class StaticCacheData implements ByteCodeCacheInterface
      * @var array<mixed>
      */
     protected $configuration = null;
+    /**
+     * @var InternedStrings
+     */
+    protected $internedStrings;
 
     /**
      * @param boolean $enabled
@@ -43,6 +47,7 @@ class StaticCacheData implements ByteCodeCacheInterface
         $enabled,
         Memory $memory,
         Statistics $statistics,
+        InternedStrings $internedStrings,
         $scripts = array(),
         array $configuration = array()
     ) {
@@ -51,6 +56,7 @@ class StaticCacheData implements ByteCodeCacheInterface
         $this->statistics    = $statistics;
         $this->scripts       = (is_array($scripts)) ? new ScriptCollection($scripts) : $scripts;
         $this->configuration = $configuration;
+        $this->internedStrings = $internedStrings;
     }
 
     /**
@@ -101,5 +107,15 @@ class StaticCacheData implements ByteCodeCacheInterface
     public function getConfiguration()
     {
         return $this->configuration;
+    }
+
+    /**
+     * Returns data about interned strings.
+     *
+     * @return InternedStrings
+     */
+    public function internedStrings(): InternedStrings
+    {
+        return $this->internedStrings;
     }
 }

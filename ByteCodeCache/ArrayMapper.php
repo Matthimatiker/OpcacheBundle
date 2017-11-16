@@ -24,7 +24,13 @@ class ArrayMapper
                 'misses' => $cache->statistics()->getMisses()
             ),
             'cachedScripts' => $this->scriptsToArray($cache->scripts()),
-            'configuration' => $cache->getConfiguration()
+            'configuration' => $cache->getConfiguration(),
+            'interned_strings_usage' => [
+                'used_memory' => $cache->internedStrings()->getUsageInMb(),
+                'buffer_size' => $cache->internedStrings()->getSizeInMb(),
+                'free_memory' => $cache->internedStrings()->getFreeInMb(),
+                'number_of_strings' => $cache->internedStrings()->getStringCount(),
+            ]
         );
     }
 
@@ -38,6 +44,12 @@ class ArrayMapper
             $data['enabled'],
             new Memory($data['memory']['usedInMb'], $data['memory']['sizeInMb']),
             new Statistics($data['statistics']['hits'], $data['statistics']['misses']),
+            new InternedStrings(
+                $data['interned_strings_usage']['used_memory'] ?? 0,
+                $data['interned_strings_usage']['buffer_size'] ?? 0,
+                $data['interned_strings_usage']['free_memory'] ?? 0,
+                $data['interned_strings_usage']['number_of_strings'] ?? 0
+            ),
             $this->scriptsFromArray($data['cachedScripts']),
             $data['configuration']
         );

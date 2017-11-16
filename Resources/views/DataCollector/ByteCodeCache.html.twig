@@ -375,5 +375,60 @@
             </div>
         </div>
 
+        <div class="tab">
+            <h3 class="tab-title">Interned strings</h3>
+
+            <div class="tab-content">
+                <div id="byteCodeInternedStringsUsage"></div>
+                <script type="application/javascript">
+                    (function () {
+                        c3.generate({
+                            bindto: "#byteCodeInternedStringsUsage",
+                            data: {
+                                columns: [
+                                    ['Used', {{ collector.byteCodeCache.internedStrings.usageInMb }}],
+                                    ['Free', {{ collector.byteCodeCache.internedStrings.freeInMb }}]
+                                ],
+                                colors: {
+                                    'Used': '{{ cache.color_yellow() }}',
+                                    'Free': '{{ cache.color_green() }}'
+                                },
+                                type: 'donut'
+                            },
+                            donut: {
+                                title: "{{ cache.number(collector.byteCodeCache.internedStrings.freeInMb) }} MB free",
+                                expand: false
+                            },
+                            tooltip: {
+                                format: {
+                                    value: function (value) {
+                                        return value.toFixed(2) + ' MB';
+                                    }
+                                }
+                            }
+                        });
+                    })();
+                </script>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Cache size
+                            </td>
+                            <td>
+                                {{ collector.byteCodeCache.internedStrings.sizeInMb|round(2) }} MB
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cached strings amount</td>
+                            <td>
+                                {{ collector.byteCodeCache.internedStrings.stringCount }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}
