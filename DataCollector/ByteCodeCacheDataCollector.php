@@ -66,4 +66,12 @@ class ByteCodeCacheDataCollector extends DataCollector
     {
         return 'matthimatiker_opcache.byte_code_cache';
     }
+
+    /**
+     * Resets this data collector to its initial state.
+     */
+    public function reset()
+    {
+        $this->byteCodeCache = null;
+    }
 }
