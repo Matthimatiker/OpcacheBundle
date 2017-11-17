@@ -23,7 +23,11 @@ Enable the bundle in your kernel:
             $bundles[] = new Matthimatiker\OpcacheBundle\MatthimatikerOpcacheBundle();
         }
     }
+    
+[Configure Twig](https://symfony.com/doc/3.2/templating/templating_service.html) as template engine in your ``config.yml``:
 
+    framework:
+        templating: { engines: ['twig'] }
 
 ## Usage ##
 
