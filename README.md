@@ -41,6 +41,11 @@ The detail page provides comprehensive information about memory state, cache key
 
 ## Changelog ##
 
+### 0.5.0 -> 0.6.0 ###
+
+- Added missing dependencies (thanks to [PabloKowalczyk](https://github.com/PabloKowalczyk))
+- Added statistics about interned strings (thanks to [PabloKowalczyk](https://github.com/PabloKowalczyk))
+
 ### 0.4.3 -> 0.5.0 ###
 
 - Avoid conflict on installation with [Symfony Flex](http://fabien.potencier.org/symfony4-demo.html)
