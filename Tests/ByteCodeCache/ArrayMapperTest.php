@@ -4,6 +4,7 @@ namespace Matthimatiker\OpcacheBundle\Tests\ByteCodeCache;
 
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ArrayMapper;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ByteCodeCacheInterface;
+use Matthimatiker\OpcacheBundle\ByteCodeCache\InternedStrings;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Memory;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\Script;
 use Matthimatiker\OpcacheBundle\ByteCodeCache\ScriptCollection;
@@ -121,6 +122,7 @@ class ArrayMapperTest extends \PHPUnit_Framework_TestCase
             true,
             new Memory(5.0, 15.0),
             new Statistics(20, 5),
+            new InternedStrings(2.0, 8.0, 6.0, 1200),
             new ScriptCollection(
                 array(
                     new Script('/any/file.php', 0.35, 42, '2015-06-01 12:00:00')

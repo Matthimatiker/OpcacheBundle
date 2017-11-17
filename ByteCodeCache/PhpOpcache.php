@@ -111,6 +111,26 @@ class PhpOpcache implements ByteCodeCacheInterface
     }
 
     /**
+     * Returns data about interned strings.
+     *
+     * @return InternedStrings
+     */
+    public function internedStrings(): InternedStrings
+    {
+        $usageInMb = $this->bytesToMb($this->data['interned_strings_usage']['used_memory'] ?? 0);
+        $sizeInMb = $this->bytesToMb($this->data['interned_strings_usage']['buffer_size'] ?? 0);
+        $freeInMb = $this->bytesToMb($this->data['interned_strings_usage']['free_memory'] ?? 0);
+        $stringCount = $this->data['interned_strings_usage']['number_of_strings'] ?? 0;
+
+        return new InternedStrings(
+            $usageInMb,
+            $sizeInMb,
+            $freeInMb,
+            $stringCount
+        );
+    }
+
+    /**
      * Calculates cache slot statistics.
      *
      * @return ScriptSlots
@@ -181,6 +201,12 @@ class PhpOpcache implements ByteCodeCacheInterface
                 'free_memory'   => 0,
                 'wasted_memory' => 0
             ),
+            'interned_strings_usage' => [
+                'buffer_size' => 0,
+                'used_memory' => 0,
+                'free_memory' => 0,
+                'number_of_strings' => 0,
+            ],
             'opcache_statistics' => array(
                 'hits'   => 0,
                 'misses' => 0,
