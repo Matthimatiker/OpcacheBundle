@@ -41,6 +41,11 @@ The detail page provides comprehensive information about memory state, cache key
 
 ## Changelog ##
 
+### 0.6.0 -> 0.7.0 ###
+
+- Added support for Symfony 4 (thanks to [PabloKowalczyk](https://github.com/PabloKowalczyk))
+- Dropped support for Symfony 2.3
+
 ### 0.5.0 -> 0.6.0 ###
 
 - Added missing dependencies (thanks to [PabloKowalczyk](https://github.com/PabloKowalczyk))
