@@ -1,6 +1,6 @@
 {# @see http://symfony.com/doc/current/cookbook/profiler/data_collector.html #}
 {# @var collector \Matthimatiker\OpcacheBundle\DataCollector\ByteCodeCacheDataCollector #}
-{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% macro number(value, precision = 2) %}
     {%- set template = '%.' ~ precision ~ 'F' -%}
@@ -327,7 +327,7 @@
             <h3 class="tab-title">Configuration</h3>
 
             <div class="tab-content">
-                {% include 'MatthimatikerOpcacheBundle:DataCollector/partials:DataTable.html.twig' with {'data': collector.byteCodeCache.configuration} only %}
+                {% include '@MatthimatikerOpcache/DataCollector/partials/DataTable.html.twig' with {'data': collector.byteCodeCache.configuration} only %}
             </div>
         </div>
 
