@@ -41,6 +41,12 @@ The detail page provides comprehensive information about memory state, cache key
 
 ## Changelog ##
 
+### 0.7.0 -> 0.7.1 ###
+
+- Updated template reference syntax to be compatible to Symfony 4 with Symfony flex (thanks to [David Ward](https://github.com/roverwolf))
+  - Corresponding issue: [#22](https://github.com/Matthimatiker/OpcacheBundle/issues/22)
+  - Corresponding Pull Request: [#21](https://github.com/Matthimatiker/OpcacheBundle/pull/21) 
+
 ### 0.6.0 -> 0.7.0 ###
 
 - Added support for Symfony 4 (thanks to [PabloKowalczyk](https://github.com/PabloKowalczyk))
