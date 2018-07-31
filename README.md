@@ -3,6 +3,13 @@
 [![Build Status](https://travis-ci.org/Matthimatiker/OpcacheBundle.svg?branch=master)](https://travis-ci.org/Matthimatiker/OpcacheBundle)
 [![Coverage Status](https://coveralls.io/repos/Matthimatiker/OpcacheBundle/badge.svg?branch=master&service=github)](https://coveralls.io/github/Matthimatiker/OpcacheBundle?branch=master)
 
+## Demo ##
+
+See the OpcacheBundle in action in the Symfony Profiler and Symfony Toolbar:
+
+    git clone git@github.com:Matthimatiker/OpcacheBundle.git
+    cd OpcacheBundle
+    docker-compose up
 
 ## Installation ##
 
