@@ -1,8 +1,12 @@
-version: "3.1"
+version: "3.2"
 services:
-    opcachebundledemo:
-      build: "demo/docker/container"
-      volumes:
-        - "./demo:/usr/app/opcachebundledemo"
-      ports:
-        - "80:80"
+    opcachebundle:
+        build: "docker/demo"
+        command: "bash -c 'printf \"See the Opcachebundle in action at http://127.0.0.1:8000\" && bin/console server:run 0.0.0.0:8000'"
+        volumes:
+          - type: bind
+            source: .
+            target: /usr/app/opcachebundle/vendor/matthimatiker/opcache-bundle/
+        restart: on-failure
+        ports:
+          - "8000:8000"
