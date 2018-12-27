@@ -17,8 +17,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('matthimatiker_opcache');
+        $treeBuilder = new TreeBuilder('matthimatiker_opcache');
+        $rootNode = \method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('matthimatiker_opcache');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
